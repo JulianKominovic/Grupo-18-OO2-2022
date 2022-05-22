@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>UNLa</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="css/modern-business.css" rel="stylesheet">
+
+</head>
+
+<body>
+	
+	<!-- Navigation -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/index">UNLa</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/usuarios/lista/}">Usuarios</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/perfiles/lista/}">Perfiles</a>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+							data-toggle="dropdown" href="#" id="navbarDropdownBlog">Sesion</a>
+						<div aria-labelledby="navbarDropdownBlog" class="dropdown-menu dropdown-menu-right">
+							<form sec:authorize="anonymous" th:action="@{/login}" method="post">
+								<input class="dropdown-item" style="cursor:pointer" type="submit"
+									value="Iniciar sesión" />
+							</form>
+
+							<form sec:authorize="authenticated" th:action="@{/logout}" method="post">
+								<input class="dropdown-item" style="cursor:pointer" type="submit"
+									value="Cerrar sesión" />
+							</form>
+
+						</div>
+					</li>
+					
+			</div>
+			
+			</li>	
+			</ul>
+		</div>
+		</div>
+	</nav>
+	
+	<header>
+		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="carousel-item active"
+					style="background-image: url('https://media.infocielo.com/p/e26157f483760427b88730435ace85bc/adjuntos/299/imagenes/001/363/0001363633/1200x675/smart/unla-3jpg.jpg')">
+					<div class="carousel-caption d-none d-md-block">
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom " >
+		<div class="container">
+			<p>GRUPO 18</p>
+		</div>
+	</footer>	
+	
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+</body>
+
+</html>

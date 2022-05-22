@@ -8,12 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames = {"documento", "correoElectronico", "nombreDeUsuario"})})
 
 public class Usuario {
 	@Id
@@ -48,11 +49,11 @@ public class Usuario {
 	private String contrasena;
 
 	@ManyToOne
-	@JoinColumn(name = "perfil_id")
-	private Perfil perfil;
+	@JoinColumn(name = "perfiles_id")
+	private Perfiles perfiles;
 
-	@Column(name = "habilitado")
-	private boolean habilitado;
+	@Column(name = "deshabilitado")
+	private boolean deshabilitado;
 
 	public Usuario() {
 	}
@@ -148,30 +149,29 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
+	public Perfiles getPerfiles() {
+		return perfiles;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void setPerfiles(Perfiles perfiles) {
+		this.perfiles = perfiles;
 	}
 
-	public boolean ishabilitadoo() {
-		return habilitado;
+	public boolean isDeshabilitado() {
+		return deshabilitado;
 	}
 
-	public void setHabilitado(boolean deshabilitado) {
-		this.habilitado = deshabilitado;
+	public void setDeshabilitado(boolean deshabilitado) {
+		this.deshabilitado = deshabilitado;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", tipoDocumento="
-				+ tipoDocumento + ", documento=" + documento + ", correoElectronico=" + correoElectronico
-				+ ", nombreDeUsuario=" + nombreDeUsuario + ", contrasena=" + contrasena + ", perfil=" + perfil
-				+ "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", tipoDocumento="+ tipoDocumento + ", documento=" + documento + ", correoElectronico=" + correoElectronico
+				+ ", nombreDeUsuario=" + nombreDeUsuario + ", contrasena=" + contrasena + ", perfiles=" + perfiles+ "]";
 	}
 
+	
 	public boolean equals(String nombre) {
 		return this.nombreDeUsuario.equals(nombre);
 		
@@ -180,4 +180,5 @@ public class Usuario {
 		return this.documento==documento;
 		
 	}
+
 }
