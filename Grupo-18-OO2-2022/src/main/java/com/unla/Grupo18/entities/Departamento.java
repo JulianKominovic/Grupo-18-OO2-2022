@@ -22,9 +22,6 @@ public class Departamento {
 	@NotEmpty
 	private String departamento; 
 	
-	@Column (name = "deshabilitado")
-	private boolean deshabilitado; 
-	
 	public Departamento() {}
 	
 	public Departamento(long id,String departamento) {
@@ -48,14 +45,6 @@ public class Departamento {
 
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
-	}
-
-	public boolean isDeshabilitado() {
-		return deshabilitado;
-	}
-
-	public void setDeshabilitado(boolean deshabilitado) {
-		this.deshabilitado = deshabilitado;
 	}
 	
 	@Override 
