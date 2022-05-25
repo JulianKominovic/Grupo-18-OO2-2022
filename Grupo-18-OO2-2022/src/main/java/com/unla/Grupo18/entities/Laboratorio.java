@@ -6,7 +6,12 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter @NoArgsConstructor
 @PrimaryKeyJoinColumn(name="id_aula")
 @Table(name="laboratorio")
 public class Laboratorio extends Aula{
@@ -19,35 +24,4 @@ public class Laboratorio extends Aula{
 	@NotEmpty
 	private int cantSillas;
 
-	public Laboratorio() {
-		super();
-	}
-
-	public Laboratorio(@NotEmpty int cantPC, @NotEmpty int cantSillas) {
-		super();
-		this.cantPC = cantPC;
-		this.cantSillas = cantSillas;
-	}
-
-	public int getCantPC() {
-		return cantPC;
-	}
-
-	public void setCantPC(int cantPC) {
-		this.cantPC = cantPC;
-	}
-
-	public int getCantSillas() {
-		return cantSillas;
-	}
-
-	public void setCantSillas(int cantSillas) {
-		this.cantSillas = cantSillas;
-	}
-
-	@Override
-	public String toString() {
-		return "Laboratorio [cantPC=" + cantPC + ", cantSillas=" + cantSillas + ", id=" + id + ", numero=" + numero
-				+ ", edificio=" + edificio + "]";
-	}
 }

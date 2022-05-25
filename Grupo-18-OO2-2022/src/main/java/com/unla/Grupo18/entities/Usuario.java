@@ -13,7 +13,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
 @Entity
+@Data @NoArgsConstructor
 @Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames = {"documento", "correoElectronico", "nombreDeUsuario"})})
 
 public class Usuario {
@@ -55,9 +60,6 @@ public class Usuario {
 	@Column(name = "deshabilitado")
 	private boolean deshabilitado;
 
-	public Usuario() {
-	}
-
 	public Usuario(long id, String nombre, String apellido, String tipoDocumento, int documento,
 			String correoElectronico, String nombreDeUsuario, String contrasena) {
 		super();
@@ -83,102 +85,6 @@ public class Usuario {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getTipoDocumento() {
-		return tipoDocumento;
-	}
-
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
-
-	public int getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(int documento) {
-		this.documento = documento;
-	}
-
-	public String getCorreoElectronico() {
-		return correoElectronico;
-	}
-
-	public void setCorreoElectronico(String correoElectronico) {
-		this.correoElectronico = correoElectronico;
-	}
-
-	public String getNombreDeUsuario() {
-		return nombreDeUsuario;
-	}
-
-	public void setNombreDeUsuario(String nombreDeUsuario) {
-		this.nombreDeUsuario = nombreDeUsuario;
-	}
-
-	public String getContrasena() {
-		return contrasena;
-	}
-
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
-	}
-
-	public Perfiles getPerfiles() {
-		return perfiles;
-	}
-
-	public void setPerfiles(Perfiles perfiles) {
-		this.perfiles = perfiles;
-	}
-
-	public boolean isDeshabilitado() {
-		return deshabilitado;
-	}
-
-	public void setDeshabilitado(boolean deshabilitado) {
-		this.deshabilitado = deshabilitado;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", tipoDocumento="+ tipoDocumento + ", documento=" + documento + ", correoElectronico=" + correoElectronico
-				+ ", nombreDeUsuario=" + nombreDeUsuario + ", contrasena=" + contrasena + ", perfiles=" + perfiles+ "]";
-	}
-
-	
-	public boolean equals(String nombre) {
-		return this.nombreDeUsuario.equals(nombre);
-		
-	}
-	public boolean equals(int documento) {
-		return this.documento==documento;
-		
 	}
 
 }

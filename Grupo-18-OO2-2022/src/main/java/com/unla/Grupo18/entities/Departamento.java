@@ -8,7 +8,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data @NoArgsConstructor
 @Table(name="departamento",uniqueConstraints = {@UniqueConstraint(columnNames= {"departamento"})})
 
 
@@ -21,37 +25,5 @@ public class Departamento {
 	@Column (name ="departamento")
 	@NotEmpty
 	private String departamento; 
-	
-	public Departamento() {}
-	
-	public Departamento(long id,String departamento) {
-		super();
-		this.id = id; 
-		this.departamento = departamento; 
-	}
-
-	
-	public long getId() {
-		return id;
-	}
-
-	protected void setId(long id) {
-		this.id = id;
-	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-	
-	@Override 
-	public String toString() {
-		return this.departamento; 
-	}
-	
-	
 	
 }
