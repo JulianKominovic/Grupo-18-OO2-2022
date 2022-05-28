@@ -91,6 +91,12 @@
 
 			</tbody>
 		</table>
+		
+		<a class="nav-link float-right" sec:authorize="hasAuthority('Auditor')"
+			th:href="@{/usuarios/lista/(format=pdf)}" title="Exportar a PDF" target="_blank">
+
+			<img class="img-responsive center-box" th:src="@{/images/IconoPDF.png}" height="auto">
+		</a>
 
 	</div>
 

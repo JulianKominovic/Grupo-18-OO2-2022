@@ -57,7 +57,7 @@ public class PerfilController {
 				perfiles.add(p);
 			}
 		}
-		model.addAttribute("titulo","Lista de perfiles");
+		model.addAttribute("titulo","Lista de Perfiles");
 		model.addAttribute("lista",perfiles);
 		return ViewRouteHelper.PERFIL_LISTA;
 	}

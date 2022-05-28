@@ -86,7 +86,7 @@ public class UsuarioController {
 				usuarios.add(u);
 			}
 		}
-		model.addAttribute("titulo", "Lista de clientes");
+		model.addAttribute("titulo", "Lista de Usuarios");
 		model.addAttribute("lista", usuarios);
 		return ViewRouteHelper.USUARIO_LISTA;
 	}
