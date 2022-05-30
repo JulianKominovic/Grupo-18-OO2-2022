@@ -22,18 +22,18 @@ public class Edificio{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "edificio")
+	@Column(name = "edificio_name")
 	@NotEmpty
-	private String edificio;
+	private String edificio_name;
 	
 	@OneToMany(mappedBy = "edificio")
 	//@JoinColumn(name = "aula_id")
 	private Set<Aula> aulas;
 	
 
-	public Edificio(@NotEmpty String edificio) {
+	public Edificio(@NotEmpty String edificio_name) {
 		super();
-		this.edificio = edificio;
+		this.edificio_name = edificio_name;
 	}
 
 }

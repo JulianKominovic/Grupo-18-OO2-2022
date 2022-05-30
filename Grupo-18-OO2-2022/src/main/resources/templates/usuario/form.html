@@ -28,6 +28,11 @@
 							<li class="nav-item">
 								<a class="nav-link" href="/perfiles/lista">Lista Perfiles</a>
 							</li>
+							
+							<li class="nav-item">
+						     <a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/departamento/lista/}">Departamento</a>
+					        </li>
 
 							<li class="nav-item">
 								<a class="nav-link" href="/logout">Cerrar sesion</a>

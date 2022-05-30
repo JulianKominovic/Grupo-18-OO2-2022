@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<title>UNLa</title>
+<link rel="stylesheet"
+	th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="/index">UNLa</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+
+					<li class="nav-item"><a class="nav-link"
+						href="/usuarios/lista">Lista Usuarios</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/perfiles/lista">Lista Perfiles</a>
+					</li>
+
+					<li class="nav-item"><a class="nav-link" href="/logout">Cerrar
+							sesion</a>
+					</li>
+			</div>
+			</li>
+			</ul>
+			</div>
+		</nav>
+		<div class="alert alert-warning alert-dismissable"
+			th:if="${warning != null}">
+			<label th:text="${warning}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	</header>
+
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+
+	</div>
+
+	<div class="container">
+	
+		<a class="btn btn-primary btn-sm"
+			sec:authorize="hasAuthority('Administrador')" th:href="@{/departamento/}"
+			th:text="'Crear Departamento'" title="Crear nuevo departamento"> </a>
+
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Departamentos</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Editar</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="li:${lista}">
+					<th scope="row" th:text="${li.departamento_name}"></th>
+					
+					<td sec:authorize="hasAuthority('Administrador')"><a
+						class="btn btn-success btn-sm"
+						th:href="@{/departamento/lista/edit/}+${li.id}" th:text="Editar"
+						title="Editar perfil"> </a></td>
+						
+					<td sec:authorize="hasAuthority('Administrador')"><a
+						class="btn btn-danger btn-sm"
+						th:href="@{/departamento/lista/delete/}+${li.id}" th:text="Eliminar"
+						title="Eliminar perfil"
+						onclick="return confirm('Esta seguro de eliminar el perfil?');">
+					</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	
+	<footer th:fragment="footer"
+		class="bg-dark text-center text-white fixed-bottom">
+		<div class="container">
+			<p>GRUPO 18</p>
+		</div>
+
+		<script type="text/javascript"
+			th:src="@{vendor/bootstrap/jquery/jquery.slim.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{vendor/bootstrap/js/popper.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{vendor/bootstrap/js/bootstrap.min.js}"></script>
+	</footer>
+
+</body>
+
+</html>

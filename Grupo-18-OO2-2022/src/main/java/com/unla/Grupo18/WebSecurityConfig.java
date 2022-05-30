@@ -33,12 +33,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/perfiles/lista").hasAnyAuthority("Auditor", "Administrador")
 		.antMatchers("/perfiles/lista/edit/**").hasAuthority("Administrador")
 		.antMatchers("/perfiles/lista/delete/**").hasAuthority("Administrador")
+		.antMatchers("/perfiles/lista/**").hasAnyAuthority("Auditor", "Administrador")
+		
 		.antMatchers("/usuarios/").hasAuthority("Administrador")
 		.antMatchers("/usuarios/lista").hasAnyAuthority("Auditor", "Administrador")
 		.antMatchers("/usuarios/lista/edit/**").hasAuthority("Administrador")
 		.antMatchers("/usuarios/lista/delete/**").hasAuthority("Administrador")
-		.antMatchers("/perfiles/lista/**").hasAnyAuthority("Auditor", "Administrador")
 		.antMatchers("/usuarios/lista/**").hasAnyAuthority("Auditor", "Administrador")
+		
+		.antMatchers("/departamento/").hasAuthority("Administrador")
+		.antMatchers("/departamento/lista").hasAnyAuthority("Auditor", "Administrador")
+		
 		.anyRequest().authenticated().and().formLogin().permitAll().and().logout().permitAll();
 	}
 	

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data @NoArgsConstructor
-@Table(name="departamento",uniqueConstraints = {@UniqueConstraint(columnNames= {"departamento"})})
+@Table(name="departamento",uniqueConstraints = {@UniqueConstraint(columnNames= {"departamento_name"})})
 
 
 public class Departamento {
@@ -22,8 +22,8 @@ public class Departamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column (name ="departamento")
+	@Column (name ="departamento_name")
 	@NotEmpty
-	private String departamento; 
+	private String departamento_name; 
 	
 }

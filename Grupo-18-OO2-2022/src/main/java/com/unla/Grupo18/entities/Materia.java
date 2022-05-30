@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data @NoArgsConstructor
-@Table(name="materia",uniqueConstraints = {@UniqueConstraint(columnNames = {"codMateria","materia"})})
+@Table(name="materia",uniqueConstraints = {@UniqueConstraint(columnNames = {"codMateria","materia_name"})})
 
 public class Materia {
 	
@@ -29,19 +29,19 @@ public class Materia {
 	@NotEmpty
 	private int codMateria;
 	
-	@Column(name="materia")
+	@Column(name="materia_name")
 	@NotEmpty
-	private String materia; 
+	private String materia_name; 
 	
 	@ManyToOne
 	@JoinColumn(name="carrera_id")
 	private Carrera carrera; 
 	
-	public Materia(long id, int codMateria, String materia) {
+	public Materia(long id, int codMateria, String materia_name) {
 		super(); 
 		this.id=id; 
 		this.codMateria = codMateria;
-		this.materia = materia; 
+		this.materia_name = materia_name; 
 		
 	}
 	

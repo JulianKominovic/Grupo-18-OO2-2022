@@ -19,6 +19,11 @@ public class ViewRouteHelper {
 	public final static String USUARIO_INDEX = "usuario/index";
 	public final static String PERFIL_LISTA = "perfil/lista";
 	public final static String PERFIL_CREAR = "perfil/crear";
+	
+	public final static String DEPARTAMENTO_LISTA = "departamento/lista";
+	public final static String DEPARTAMENTO_CREAR = "departamento/crear";
+	public final static String DEPARTAMENTO_REDIRECT = "redirect:/departamento/";
+	public final static String DEPARTAMENTO_REDIRECT_LISTA = "redirect:/departamento/lista";
 
 	public final static String NOTA_PEDIDO_LISTA = "nota-pedido/lista";
 	public final static String NOTA_PEDIDO_CREAR = "nota-pedido/crear";
