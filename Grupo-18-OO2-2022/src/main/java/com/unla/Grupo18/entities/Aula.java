@@ -11,20 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Data @NoArgsConstructor
-@Table(name="aula")
-@Inheritance(strategy=InheritanceType.JOINED)
-
+@Data 
+@NoArgsConstructor
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
+@Table(name = "aula")
 public abstract class Aula{
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected long id;
 	
 	@Column(name = "numero")
@@ -34,11 +31,5 @@ public abstract class Aula{
 	@ManyToOne
 	@JoinColumn(name = "edificio_id")
 	protected Edificio edificio;
-
-
-	public Aula(@NotEmpty int numero) {
-		super();
-		this.numero = numero;
-	}
 
 }

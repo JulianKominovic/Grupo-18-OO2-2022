@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+	<meta charset="UTF-8" />
+	<title>UNLa</title>
+	<link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="/index">UNLa</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" href="/perfiles/lista">Lista Perfiles</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">Cerrar sesion</a>
+					</li>
+
+			</div>
+			</li>
+			</ul>
+			</div>
+		</nav>
+		<div class="alert alert-warning alert-dismissable" th:if="${warning != null}">
+			<label th:text="${warning}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	</header>
+
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+	</div>
+
+	<div class="container">
+
+		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/espacios/}"
+			th:text="'Crear Espacio'" title="Crear nuevo espacio">
+		</a>
+		
+		<div class="container">
+			<h3 th:text="${tituloTradicional}"></h3>
+		</div>
+
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Edificio</th>
+					<th scope="col">N° Aula</th>
+					<th scope="col">Cantidad de bancos</th>
+					<th scope="col">Tipo de pizarron</th>
+					<th scope="col">Proyector</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Turno</th>
+					<th scope="col">Libre</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="et:${espaciosTradicional}">
+
+					<th scope="row" th:text="${et.aula.edificio.edificio_name}"></th>
+					<th scope="row" th:text="${et.aula.numero}"></th>
+					<th scope="row" th:text="${et.aula.cantBancos}"></th>
+					<th scope="row" th:text="${et.aula.pizarron}"></th>
+					<th scope="row" th:text="${et.aula.tieneProyector}"></th>
+					<th scope="row" th:text="${et.fecha}"></th>
+					<th scope="row" th:text="${et.turno}"></th>
+					<th scope="row" th:text="${et.libre}"></th>
+
+
+
+
+				</tr>
+
+			</tbody>
+		</table>
+
+		<div class="container">
+			<h3 th:text="${tituloLaboratorio}"></h3>
+		</div>
+		
+				<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Edificio</th>
+					<th scope="col">N° Aula</th>
+					<th scope="col">Cantidad de computadoras</th>
+					<th scope="col">Cantidad de computadoras</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Turno</th>
+					<th scope="col">Libre</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="el:${espaciosLaboratorio}">
+
+					<th scope="row" th:text="${el.aula.edificio.edificio_name}"></th>
+					<th scope="row" th:text="${el.aula.numero}"></th>
+					<th scope="row" th:text="${el.aula.cantPC}"></th>
+					<th scope="row" th:text="${el.aula.cantSillas}"></th>
+					<th scope="row" th:text="${el.fecha}"></th>
+					<th scope="row" th:text="${el.turno}"></th>
+					<th scope="row" th:text="${el.libre}"></th>
+
+
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">
+		<div class="container">
+			<p>GRUPO 18</p>
+		</div>
+
+		<script type="text/javascript" th:src="@{vendor/bootstrap/jquery/jquery.slim.min.js}"></script>
+		<script type="text/javascript" th:src="@{vendor/bootstrap/js/popper.min.js}"></script>
+		<script type="text/javascript" th:src="@{vendor/bootstrap/js/bootstrap.min.js}"></script>
+	</footer>
+
+</body>
+
+</html>
