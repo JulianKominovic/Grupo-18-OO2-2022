@@ -57,7 +57,9 @@
 			<form action="#" th:action="@{/perfiles/}" th:object="${perfil}" method="post">
 				<input type="hidden" th:field="*{id}" />
 				<p> Rol del Perfil: <input type="text" th:field="*{rol}" />
-					<small></small>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('rol')}"
+					th:errors="*{rol}" >
+				    </small>
 					</p>
 
 				<input type="submit" />

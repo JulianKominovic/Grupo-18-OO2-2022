@@ -65,7 +65,14 @@ public class UsuarioController {
 			if (p.isDeshabilitado() == true) {
 				perfiles.add(p);
 			}
-		}
+		}	
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario: Nuevo Usuario");
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("perfiles", listaPerfiles);
+			System.out.println("Se encontraron Errores en el formulario!");
+			return ViewRouteHelper.USUARIO_INDEX;
+			}
 		usuario.setDeshabilitado(true);
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String passwordCrypt = pe.encode(usuario.getContrasena());

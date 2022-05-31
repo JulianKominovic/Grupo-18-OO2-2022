@@ -56,10 +56,12 @@
 			<form action="#" th:action="@{/usuarios/}" th:object="${usuario}" method="post">
 				<input type="hidden" th:field="*{id}" />
 				<p> Nombre: <input type="text" th:field="*{nombre}" />
-					<small></small>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+					th:errors="*{nombre}" ></small>
 			    </p>
 	            <p> Apellido: <input type="text" th:field="*{apellido}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+					th:errors="*{apellido}"></small>
 	            </p>
 	            <p> Tipo documento:
 				<select th:field="*{tipoDocumento}" id="tipoDocumento">
@@ -67,23 +69,27 @@
 				<option th:value="L.C." th:text="L.C"/>
 				<option th:value="L.E." th:text="L.E"/></p>
 	            <p> Documento: <input type="number" th:field="*{documento}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('documento')}"
+					th:errors="*{documento}"></small>
 	             </p>
 	             <p> Correo Electronico: <input type="text" th:field="*{correoElectronico}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('correoElectronico')}"
+					th:errors="*{correoElectronico}"></small>
 	             </p>
 	             <p> Usuario: <input type="text" th:field="*{nombreDeUsuario}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreDeUsuario')}"
+					th:errors="*{nombreDeUsuario}"></small>
 	             </p>
 	             <p> Contrasena: <input type="password" th:field="*{contrasena}" />
-		              <small></small>
+		              <small class="form-text text-danger" th:if="${#fields.hasErrors('contrasena')}"
+					th:errors="*{contrasena}" ></small>
 	             </p>
 	           <p> Perfil del Usuario:
 				<select th:field="*{perfiles}" id="perfiles">
 				<option th:each="perfil:${perfiles}"
 					    th:value="${perfil.id}"
 					   th:text="${perfil.rol}"/></p>
-
+					   
 			<input type="submit" class="btn btn-primary btn-sm" value="Guardar" />
 		</form>
 	</div>

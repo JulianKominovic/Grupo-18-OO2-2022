@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,19 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.unla.Grupo18.entities.Aula;
 import com.unla.Grupo18.entities.Edificio;
 import com.unla.Grupo18.entities.Espacio;
 import com.unla.Grupo18.entities.Laboratorio;
-import com.unla.Grupo18.entities.Perfiles;
 import com.unla.Grupo18.entities.Tradicional;
-import com.unla.Grupo18.entities.Usuario;
-import com.unla.Grupo18.helpers.ViewRouteHelper;
 import com.unla.Grupo18.services.IEdificioService;
 import com.unla.Grupo18.services.IEspacioService;
 import com.unla.Grupo18.services.ILaboratorioService;
 import com.unla.Grupo18.services.ITradicionalService;
-import com.unla.Grupo18.services.IUsuarioService;
+
 
 @Controller
 @RequestMapping("/espacios")

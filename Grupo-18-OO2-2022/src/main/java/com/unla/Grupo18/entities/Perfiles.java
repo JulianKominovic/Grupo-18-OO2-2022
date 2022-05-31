@@ -24,7 +24,7 @@ public class Perfiles {
 	private long id;
 
 	@Column(name = "rol")
-	@NotEmpty
+	@NotEmpty(message="el campo no debe estar vacio") 
 	private String rol;
 
 	@Column(name = "deshabilitado")

@@ -58,7 +58,8 @@
 				<input type="hidden" th:field="*{id}" />
 				
 				<p> Departamento: <input type="text" th:field="*{departamento_name}" />
-					<small></small>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('departamento_name')}" 
+					th:erros="*{departamento_name}"></small>
 				</p>
 
 				<input type="submit" />

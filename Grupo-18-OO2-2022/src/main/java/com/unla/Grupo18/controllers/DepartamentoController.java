@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.unla.Grupo18.entities.Departamento;
-import com.unla.Grupo18.entities.Perfiles;
-import com.unla.Grupo18.entities.Usuario;
 import com.unla.Grupo18.helpers.ViewRouteHelper;
 import com.unla.Grupo18.services.IDepartamentoService;
 
@@ -42,6 +40,12 @@ public class DepartamentoController {
 	
 	@PostMapping("/")
 	public String guardar(@Valid @ModelAttribute Departamento departamento,BindingResult result,Model model,RedirectAttributes attribute) {
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario: Nuevo Departamento");
+			model.addAttribute("departamento", departamento);
+			System.out.println("Se encontraron Errores en el formulario!");
+			return ViewRouteHelper.DEPARTAMENTO_CREAR;
+			}
 		departamentoService.save(departamento);
 		System.out.println("Departamento guardado con exito!");
 		attribute.addFlashAttribute("success","Departamento agregado con exito");

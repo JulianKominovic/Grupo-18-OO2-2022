@@ -23,7 +23,7 @@ public class Departamento {
 	private long id;
 	
 	@Column (name ="departamento_name")
-	@NotEmpty
+	@NotEmpty(message="el campo no debe estar vacio") 
 	private String departamento_name; 
 	
 }
