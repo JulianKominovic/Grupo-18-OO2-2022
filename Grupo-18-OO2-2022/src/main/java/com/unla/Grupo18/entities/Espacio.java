@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,19 +28,17 @@ public class Espacio{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha")
-	@NotEmpty
+	@NotNull
 	private LocalDate fecha;
 	
 	@Column(name = "turno")
 	@NotEmpty
-	private char turno;
+	private String turno;
 	
 	@ManyToOne
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
 	
 	@Column(name = "libre")
-	@NotEmpty
 	private boolean libre;
-
 }

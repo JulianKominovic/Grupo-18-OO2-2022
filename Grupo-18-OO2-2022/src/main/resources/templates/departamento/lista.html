@@ -23,11 +23,15 @@
 				<ul class="navbar-nav ml-auto">
 
 					<li class="nav-item"><a class="nav-link"
-						href="/usuarios/lista">Lista Usuarios</a>
+						href="/usuarios/lista">Usuarios</a>
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link" href="/perfiles/lista">Lista Perfiles</a>
+						<a class="nav-link" href="/perfiles/lista">Perfiles</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
 
 					<li class="nav-item"><a class="nav-link" href="/logout">Cerrar

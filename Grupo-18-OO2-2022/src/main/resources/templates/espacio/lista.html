@@ -8,49 +8,57 @@
 </head>
 
 <body>
-	<header th:fragment="header">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="/index">UNLa</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
+		<header th:fragment="header">
+			<header th:fragment="header">
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+					<a class="navbar-brand" href="/index">UNLa</a>
+					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+						data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarResponsive">
+						<ul class="navbar-nav ml-auto">
 
-					<li class="nav-item">
-						<a class="nav-link" href="/perfiles/lista">Lista Perfiles</a>
+							<li class="nav-item">
+								<a class="nav-link" href="/usuarios/lista">Usuarios </a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="/perfiles/lista">Perfiles</a>
+							</li>
+							
+							<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/departamento/lista/}">Departamentos</a>
+					       </li>
+							<li class="nav-item">
+								<a class="nav-link" href="/logout">Cerrar sesion</a>
+							</li>
+
+					</div>
 					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="/logout">Cerrar sesion</a>
-					</li>
-
-			</div>
-			</li>
-			</ul>
-			</div>
-		</nav>
-		<div class="alert alert-warning alert-dismissable" th:if="${warning != null}">
-			<label th:text="${warning}"></label>
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-		</div>
-	</header>
+					</ul>
+					</div>
+				</nav>
+				<div class="alert alert-success alert-dismissable" th:if="${success != null}">
+					<label th:text="${success}"></label>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+			</header>
+		</header>
 
 	<div class="container">
 		<h1 th:text="${titulo}"></h1>
 	</div>
 
 	<div class="container">
-
-		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/espacios/}"
-			th:text="'Crear Espacio'" title="Crear nuevo espacio">
-		</a>
 		
 		<div class="container">
 			<h3 th:text="${tituloTradicional}"></h3>
 		</div>
+		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/espacios/crear/tradicional}"
+			th:text="'Crear Espacio'" title="Crear nuevo espacio"></a><p></p>
 
 		<table class="table">
 			<thead class="thead-dark">
@@ -73,13 +81,19 @@
 					<th scope="row" th:text="${et.aula.numero}"></th>
 					<th scope="row" th:text="${et.aula.cantBancos}"></th>
 					<th scope="row" th:text="${et.aula.pizarron}"></th>
-					<th scope="row" th:text="${et.aula.tieneProyector}"></th>
+					<th scope="row" th:if="${et.aula.tieneProyector == true}" th:text="Si"></th>
+					<th scope="row" th:if="${et.aula.tieneProyector == false}" th:text="No"></th>
 					<th scope="row" th:text="${et.fecha}"></th>
 					<th scope="row" th:text="${et.turno}"></th>
-					<th scope="row" th:text="${et.libre}"></th>
+					<th scope="row" th:if="${et.libre == true}" th:text="Si"></th>
+					<th scope="row" th:if="${et.libre == false}" th:text="No"></th>
 
-
-
+					<td sec:authorize="hasAuthority('Administrador')"><a
+						class="btn btn-danger btn-sm"
+						th:href="@{/espacios/lista/delete/}+${et.id}" th:text="Eliminar"
+						title="Eliminar espacio"
+						onclick="return confirm('Esta seguro de eliminar el espacio?');">
+					</a></td>
 
 				</tr>
 
@@ -89,14 +103,15 @@
 		<div class="container">
 			<h3 th:text="${tituloLaboratorio}"></h3>
 		</div>
-		
+		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/espacios/crear/laboratorio}"
+			th:text="'Crear Espacio'" title="Crear nuevo espacio"></a><p></p>
 				<table class="table">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Edificio</th>
 					<th scope="col">N° Aula</th>
 					<th scope="col">Cantidad de computadoras</th>
-					<th scope="col">Cantidad de computadoras</th>
+					<th scope="col">Cantidad de sillas</th>
 					<th scope="col">Fecha</th>
 					<th scope="col">Turno</th>
 					<th scope="col">Libre</th>
@@ -112,9 +127,15 @@
 					<th scope="row" th:text="${el.aula.cantSillas}"></th>
 					<th scope="row" th:text="${el.fecha}"></th>
 					<th scope="row" th:text="${el.turno}"></th>
-					<th scope="row" th:text="${el.libre}"></th>
+					<th scope="row" th:if="${el.libre == true}" th:text="Si"></th>
+					<th scope="row" th:if="${el.libre == false}" th:text="No"></th>
 
-
+					<td sec:authorize="hasAuthority('Administrador')"><a
+						class="btn btn-danger btn-sm"
+						th:href="@{/espacios/lista/delete/}+${el.id}" th:text="Eliminar"
+						title="Eliminar espacio"
+						onclick="return confirm('Esta seguro de eliminar el espacio?');">
+					</a></td>
 
 				</tr>
 

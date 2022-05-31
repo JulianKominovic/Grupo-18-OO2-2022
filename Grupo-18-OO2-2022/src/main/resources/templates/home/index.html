@@ -42,7 +42,11 @@
 					
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/departamento/lista/}">Departamento</a>
+							th:href="@{/departamento/lista/}">Departamentos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
 
 					<li class="nav-item dropdown">
