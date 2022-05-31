@@ -45,6 +45,10 @@
 					<label th:text="${success}"></label>
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 				</div>
+				<div class="alert alert-danger alert-dismissable" th:if="${error != null}">
+					<label th:text="${error}"></label>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
 			</header>
 		</header>
 
