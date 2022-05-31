@@ -27,18 +27,18 @@ public class Usuario {
 	private long id;
 
 	@Column(name = "nombre")
-	@NotEmpty
+	@NotEmpty(message="no debe estar vacio") 
 	private String nombre;
 
 	@Column(name = "apellido")
-	@NotEmpty
+	@NotEmpty(message="no debe estar vacio") 
 	private String apellido;
 	
 	@Column(name = "tipoDocumento")
 	private String tipoDocumento;
 
 	@Column(name = "documento")
-	@NotNull
+	@NotNull(message="no debe estar vacio") 
 	private int documento;
 
 	@Column(name = "correoElectronico")
@@ -46,11 +46,11 @@ public class Usuario {
 	private String correoElectronico;
 
 	@Column(name = "nombreDeUsuario")
-	@NotEmpty
+	@NotEmpty(message="no debe estar vacio") 
 	private String nombreDeUsuario;
 
 	@Column(name = "contrasena")
-	@NotEmpty
+	@NotEmpty(message="no debe estar vacio") 
 	private String contrasena;
 
 	@ManyToOne

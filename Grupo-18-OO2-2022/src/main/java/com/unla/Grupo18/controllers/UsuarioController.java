@@ -66,6 +66,15 @@ public class UsuarioController {
 				perfiles.add(p);
 			}
 		}
+		
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario: Nuevo Usuario");
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("perfiles", listaPerfiles);
+			System.out.println("Se encontraron Errores en el formulario!");
+			return ViewRouteHelper.USUARIO_INDEX;
+			}
+		
 		usuario.setDeshabilitado(true);
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String passwordCrypt = pe.encode(usuario.getContrasena());
@@ -74,7 +83,6 @@ public class UsuarioController {
 		System.out.println("Usuario guardado con exito!");
 		attribute.addFlashAttribute("success","Usuario agregado con exito");
 		return "redirect:/usuarios/";
-
 	}
 
 	@GetMapping("/lista")
