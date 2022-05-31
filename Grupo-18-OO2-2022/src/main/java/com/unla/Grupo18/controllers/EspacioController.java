@@ -94,9 +94,19 @@ public class EspacioController {
 	
 	@PostMapping("/crear/tradicional")
 	public String guardarTradicional(@Valid @ModelAttribute Espacio espacio,BindingResult result,Model model,RedirectAttributes attribute, @Valid @ModelAttribute Tradicional tradicional) {
-		tradicionalService.save(tradicional);
 		espacio.setAula(tradicional);
 		espacio.setLibre(true);
+		if(validaLogica(espacio)) {
+			System.out.println("Se introdujo un valor imposible.");
+			attribute.addFlashAttribute("error","Se introdujo un valor que no es posible.");
+			return "redirect:/espacios/lista";
+		}
+		if(validaRepetidos(espacio)) {
+			System.out.println("Ya existe un espacio con esas caracteristicas.");
+			attribute.addFlashAttribute("error","Ya existe un espacio con esas caracteristicas.");
+			return "redirect:/espacios/lista";
+		}
+		tradicionalService.save(tradicional);
 		espacioService.save(espacio);
 		System.out.println("Espacio guardado con exito!");
 		attribute.addFlashAttribute("success","Espacio agregado con exito");
@@ -117,12 +127,62 @@ public class EspacioController {
 	
 	@PostMapping("/crear/laboratorio")
 	public String guardarLaboratorio(@Valid @ModelAttribute Espacio espacio,BindingResult result,Model model,RedirectAttributes attribute, @Valid @ModelAttribute Laboratorio laboratorio) {
-		laboratorioService.save(laboratorio);
 		espacio.setAula(laboratorio);
 		espacio.setLibre(true);
+		if(validaLogica(espacio)) {
+			System.out.println("Se introdujo un valor imposible.");
+			attribute.addFlashAttribute("error","Se introdujo un valor que no es posible.");
+			return "redirect:/espacios/lista";
+		}
+		if(validaRepetidos(espacio)) {
+			System.out.println("Ya existe un espacio con esas caracteristicas.");
+			attribute.addFlashAttribute("error","Ya existe un espacio con esas caracteristicas.");
+			
+			return "redirect:/espacios/lista";
+		}
+		laboratorioService.save(laboratorio);
 		espacioService.save(espacio);
 		System.out.println("Espacio guardado con exito!");
 		attribute.addFlashAttribute("success","Espacio agregado con exito");
 		return "redirect:/espacios/lista";
+	}
+	
+	public boolean validaRepetidos(Espacio espacio) {
+		boolean repetido = false;
+		List<Espacio> listado = espacioService.getAll();
+		for (Espacio e : listado) {
+			if(espacio.equals(e)) {
+				repetido = true;
+			}
+		}
+		return repetido;
+	}
+	public boolean validaLogica(Espacio espacio) {
+		boolean ilogico = false;
+		if(espacio.getAula() instanceof Tradicional) { //validaciones de aula tradicional
+			Tradicional auxAula = (Tradicional)espacio.getAula();
+			if(auxAula.getNumero() < 0 || auxAula.getNumero() > 100) {
+				ilogico = true;
+			}
+			if(auxAula.getCantBancos() < 0 || auxAula.getCantBancos() > 100) {
+				ilogico = true;
+			}
+		}
+		if(espacio.getAula() instanceof Laboratorio) { //validaciones de aula laboratorio
+			Laboratorio auxAula = (Laboratorio)espacio.getAula();
+			if(auxAula.getNumero() < 0 || auxAula.getNumero() > 100) {
+				ilogico = true;
+			}
+			if(auxAula.getCantPC() < 0 || auxAula.getCantPC() > 100) {
+				ilogico = true;
+			}
+			if(auxAula.getCantSillas() < 0 || auxAula.getCantSillas() > 100) {
+				ilogico = true;
+			}
+		}
+		if(espacio.getFecha()==null || !espacio.getFecha().isAfter(LocalDate.now())) { //validaciones de fecha
+			ilogico = true;
+		}
+		return ilogico;
 	}
 }

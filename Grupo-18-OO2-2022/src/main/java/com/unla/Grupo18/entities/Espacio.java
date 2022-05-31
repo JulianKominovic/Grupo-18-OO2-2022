@@ -1,6 +1,8 @@
 package com.unla.Grupo18.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,4 +43,14 @@ public class Espacio{
 	
 	@Column(name = "libre")
 	private boolean libre;
+
+	@Override
+	public boolean equals(Object obj) {
+		Espacio other = (Espacio) obj;
+		return (aula.getNumero() == other.aula.getNumero()) && fecha.equals(other.getFecha()) && turno.equalsIgnoreCase(other.getTurno());
+	}
+
+
+	
+	
 }
