@@ -10,22 +10,22 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data 
 @NoArgsConstructor
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)  
 @Table(name = "aula")
 public abstract class Aula{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long id;
 	
 	@Column(name = "numero")
-	@NotEmpty
+	@NotNull
 	protected int numero;
 	
 	@ManyToOne

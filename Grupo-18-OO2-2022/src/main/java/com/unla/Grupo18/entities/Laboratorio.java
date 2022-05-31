@@ -2,7 +2,7 @@ package com.unla.Grupo18.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class Laboratorio extends Aula{
 	
 	@Column(name = "cant_pc")
-	@NotEmpty
+	@NotNull
 	private int cantPC;
 	
 	@Column(name = "cantSillas")
-	@NotEmpty
+	@NotNull
 	private int cantSillas;
 }
