@@ -9,25 +9,29 @@ import com.unla.Grupo18.repositories.IDepartamentoRepository;
 import com.unla.Grupo18.services.IDepartamentoService;
 
 
-@Service("departametoService")
+@Service("departamentoService")
 public class DepartamentoService implements IDepartamentoService {
 
 	@Autowired
 	@Qualifier("departamentoRepository")
 	private IDepartamentoRepository departamentoRepository;
 	
+	@Override
 	public List<Departamento> getAll(){
 		return departamentoRepository.findAll();
 	}
 	
+	@Override
 	public void save(Departamento departamento) {
 		departamentoRepository.save(departamento); 
 	}
 	
+	@Override
 	public Departamento buscar(long id) {
 		return departamentoRepository.findById(id).orElse(null);
 	}
 	
+	@Override
 	public void eliminar (long id) {
 		departamentoRepository.deleteById(id); 
 	}

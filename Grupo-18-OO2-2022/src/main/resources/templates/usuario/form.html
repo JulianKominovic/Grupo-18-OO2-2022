@@ -9,37 +9,44 @@
 
 <body>
 	<header th:fragment="header">
-		<header th:fragment="header">
-			<header th:fragment="header">
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-					<a class="navbar-brand" href="/index">UNLa</a>
-					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-						data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarResponsive">
-						<ul class="navbar-nav ml-auto">
-
-							<li class="nav-item">
-								<a class="nav-link" href="/usuarios/lista">Lista Usuarios </a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link" href="/perfiles/lista">Lista Perfiles</a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link" href="/logout">Cerrar sesion</a>
-							</li>
-
-					</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="/index">UNLa</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="/usuarios/lista">Usuarios</a>
 					</li>
-					</ul>
-					</div>
-				</nav>
-			</header>
-		</header>
+					<li class="nav-item">
+						<a class="nav-link" href="/perfiles/lista">Perfiles</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/departamento/lista/}">Departamentos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/espacios/lista/}">Espacios</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">Cerrar sesion</a>
+					</li>
+
+			</div>
+			</li>
+			</ul>
+			</div>
+		</nav>
+		<div class="alert alert-warning alert-dismissable" th:if="${warning != null}">
+			<label th:text="${warning}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
 	</header>
 
 	<div class="card bg-light">
@@ -49,10 +56,12 @@
 			<form action="#" th:action="@{/usuarios/}" th:object="${usuario}" method="post">
 				<input type="hidden" th:field="*{id}" />
 				<p> Nombre: <input type="text" th:field="*{nombre}" />
-					<small></small>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+					th:errors="*{nombre}" ></small>
 			    </p>
 	            <p> Apellido: <input type="text" th:field="*{apellido}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+					th:errors="*{apellido}"></small>
 	            </p>
 	            <p> Tipo documento:
 				<select th:field="*{tipoDocumento}" id="tipoDocumento">
@@ -60,23 +69,27 @@
 				<option th:value="L.C." th:text="L.C"/>
 				<option th:value="L.E." th:text="L.E"/></p>
 	            <p> Documento: <input type="number" th:field="*{documento}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('documento')}"
+					th:errors="*{documento}"></small>
 	             </p>
 	             <p> Correo Electronico: <input type="text" th:field="*{correoElectronico}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('correoElectronico')}"
+					th:errors="*{correoElectronico}"></small>
 	             </p>
 	             <p> Usuario: <input type="text" th:field="*{nombreDeUsuario}" />
-						<small></small>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreDeUsuario')}"
+					th:errors="*{nombreDeUsuario}"></small>
 	             </p>
 	             <p> Contrasena: <input type="password" th:field="*{contrasena}" />
-		              <small></small>
+		              <small class="form-text text-danger" th:if="${#fields.hasErrors('contrasena')}"
+					th:errors="*{contrasena}" ></small>
 	             </p>
 	           <p> Perfil del Usuario:
 				<select th:field="*{perfiles}" id="perfiles">
 				<option th:each="perfil:${perfiles}"
 					    th:value="${perfil.id}"
 					   th:text="${perfil.rol}"/></p>
-
+					   
 			<input type="submit" class="btn btn-primary btn-sm" value="Guardar" />
 		</form>
 	</div>

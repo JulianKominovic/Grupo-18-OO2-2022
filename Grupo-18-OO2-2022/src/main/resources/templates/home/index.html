@@ -39,6 +39,15 @@
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/perfiles/lista/}">Perfiles</a>
 					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/departamento/lista/}">Departamentos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/espacios/lista/}">Espacios</a>
+					</li>
 
 					<li class="nav-item dropdown">
 						<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
@@ -72,7 +81,7 @@
 			</ol>
 			<div class="carousel-inner" role="listbox">
 				<div class="carousel-item active"
-					style="background-image: url('https://media.infocielo.com/p/e26157f483760427b88730435ace85bc/adjuntos/299/imagenes/001/363/0001363633/1200x675/smart/unla-3jpg.jpg')">
+					style="background-image: url('https://pbs.twimg.com/media/DqUigO_WwAEV67F.jpg')">
 					<div class="carousel-caption d-none d-md-block">
 					</div>
 				</div>

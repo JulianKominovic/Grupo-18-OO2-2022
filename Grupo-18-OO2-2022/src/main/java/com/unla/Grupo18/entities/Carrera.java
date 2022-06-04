@@ -11,8 +11,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name="carrera", uniqueConstraints = {@UniqueConstraint(columnNames = {"carrera"})})
+@Data @NoArgsConstructor
+@Table(name="carrera", uniqueConstraints = {@UniqueConstraint(columnNames = {"carrera_name"})})
 
 
 public class Carrera {
@@ -21,52 +25,19 @@ public class Carrera {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id; 
 	
-	@Column(name = "carrera")
+	@Column(name = "carrera_name")
 	@NotEmpty
-	private String carrera; 
+	private String carrera_name; 
 	
 	@ManyToOne
 	@JoinColumn(name = "departamento_id")
 	private Departamento departamento; 
 	
-	public Carrera() {} 
 	
-	public Carrera(long id, String carrera) {
+	public Carrera(long id, String carrera_name) {
 		super();
 		this.id = id;
-		this.carrera = carrera; 
+		this.carrera_name = carrera_name; 
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	protected void setId(long id) {
-		this.id = id;
-	}
-
-	public String getCarrera() {
-		return carrera;
-	}
-
-	public void setCarrera(String carrera) {
-		this.carrera = carrera;
-	}
-
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-	
-	public String toString() {
-		return "Carrera [id=" + id + "nombre="+ carrera + "departamento="+departamento+"]";
-	}
-	
-	public boolean equals(String carrera) {
-		return this.carrera.equalsIgnoreCase(carrera);
-	}
-	
 }

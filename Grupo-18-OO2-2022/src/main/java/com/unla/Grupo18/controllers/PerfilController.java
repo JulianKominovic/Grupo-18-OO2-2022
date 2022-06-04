@@ -39,6 +39,12 @@ public class PerfilController {
 	
 	@PostMapping("/")
 	public String guardar(@Valid @ModelAttribute Perfiles perfil,BindingResult result,Model model,RedirectAttributes attribute) {
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Nuevo Perfil");
+			model.addAttribute("perfil", perfil);
+			System.out.println("Se encontraron Errores en el Perfil!");
+			return ViewRouteHelper.PERFIL_CREAR;
+		}
 		perfil.setDeshabilitado(true);
 		perfilesService.save(perfil);
 		System.out.println("Perfil guardado con exito!");
@@ -57,7 +63,7 @@ public class PerfilController {
 				perfiles.add(p);
 			}
 		}
-		model.addAttribute("titulo","Lista de perfiles");
+		model.addAttribute("titulo","Lista de Perfiles");
 		model.addAttribute("lista",perfiles);
 		return ViewRouteHelper.PERFIL_LISTA;
 	}

@@ -9,7 +9,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter @NoArgsConstructor
 @Table(name = "perfiles", uniqueConstraints = {@UniqueConstraint(columnNames = {"rol"})})
 
 public class Perfiles {
@@ -19,13 +24,12 @@ public class Perfiles {
 	private long id;
 
 	@Column(name = "rol")
-	@NotEmpty
+	@NotEmpty(message="el campo no debe estar vacio") 
 	private String rol;
 
 	@Column(name = "deshabilitado")
 	private boolean deshabilitado;
 
-	public Perfiles() {}
 
 	public Perfiles(long id, String rol) {
 		super();
@@ -38,29 +42,6 @@ public class Perfiles {
 		this.rol = rol;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-
-	public boolean isDeshabilitado() {
-		return deshabilitado;
-	}
-
-	public void setDeshabilitado(boolean deshabilitado) {
-		this.deshabilitado = deshabilitado;
-	}
 	@Override
 	public String toString() {
 		return rol;

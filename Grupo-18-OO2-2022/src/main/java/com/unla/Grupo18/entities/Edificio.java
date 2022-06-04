@@ -10,7 +10,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data @NoArgsConstructor
 @Table(name="edificio")
 public class Edificio{
 	
@@ -18,53 +22,18 @@ public class Edificio{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "edificio")
+	@Column(name = "edificio_name")
 	@NotEmpty
-	private String edificio;
+	private String edificio_name;
 	
 	@OneToMany(mappedBy = "edificio")
 	//@JoinColumn(name = "aula_id")
 	private Set<Aula> aulas;
 	
-	public Edificio() {}
 
-	public Edificio(@NotEmpty String edificio) {
+	public Edificio(@NotEmpty String edificio_name) {
 		super();
-		this.edificio = edificio;
+		this.edificio_name = edificio_name;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getEdificio() {
-		return edificio;
-	}
-
-	public void setEdificio(String edificio) {
-		this.edificio = edificio;
-	}
-
-	public Set<Aula> getAulas() {
-		return aulas;
-	}
-
-	public void setAulas(Set<Aula> aulas) {
-		this.aulas = aulas;
-	}
-
-	@Override
-	public String toString() {
-		return "Edificio [id=" + id + ", edificio=" + edificio + "]";
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Edificio other = (Edificio) obj;
-		return id == other.id;
-	}
 }

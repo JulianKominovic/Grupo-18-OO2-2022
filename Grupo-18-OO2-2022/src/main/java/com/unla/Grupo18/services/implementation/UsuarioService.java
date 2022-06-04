@@ -3,6 +3,7 @@ package com.unla.Grupo18.services.implementation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import com.unla.Grupo18.entities.Usuario;
 import com.unla.Grupo18.repositories.IUsuarioRepository;
@@ -35,4 +36,5 @@ public class UsuarioService implements IUsuarioService {
 	public void eliminar(long id) {
 		usuarioRepository.deleteById(id);
 	}
+	
 }

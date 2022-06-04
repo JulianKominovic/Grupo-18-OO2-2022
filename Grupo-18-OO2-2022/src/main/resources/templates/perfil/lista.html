@@ -23,7 +23,16 @@
 				<ul class="navbar-nav ml-auto">
 
 					<li class="nav-item"><a class="nav-link"
-						href="/usuarios/lista">Lista Usuarios</a>
+						href="/usuarios/lista">Usuarios</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/departamento/lista/}">Departamentos</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+						th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
 
 					<li class="nav-item"><a class="nav-link" href="/logout">Cerrar
@@ -80,6 +89,12 @@
 
 			</tbody>
 		</table>
+		
+		<a class="nav-link float-right" sec:authorize="hasAuthority('Auditor')"
+			th:href="@{/perfiles/lista/(format=pdf)}" title="Exportar a PDF" target="_blank">
+
+			<img class="img-responsive center-box" th:src="@{/images/IconoPDF.png}" height="auto">
+		</a>
 
 	</div>
 

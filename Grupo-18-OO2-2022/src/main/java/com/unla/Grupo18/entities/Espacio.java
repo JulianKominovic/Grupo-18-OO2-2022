@@ -1,6 +1,8 @@
 package com.unla.Grupo18.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data @NoArgsConstructor
 @Table(name="espacio")
 public class Espacio{
 	
@@ -19,81 +28,29 @@ public class Espacio{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha")
-	@NotEmpty
+	@NotNull
 	private LocalDate fecha;
 	
 	@Column(name = "turno")
 	@NotEmpty
-	private char turno;
+	private String turno;
 	
 	@ManyToOne
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
 	
 	@Column(name = "libre")
-	@NotEmpty
 	private boolean libre;
-
-	public Espacio() {}
-
-	public Espacio(@NotEmpty LocalDate fecha, @NotEmpty char turno, Aula aula, @NotEmpty boolean libre) {
-		super();
-		this.fecha = fecha;
-		this.turno = turno;
-		this.aula = aula;
-		this.libre = libre;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
-
-	public char getTurno() {
-		return turno;
-	}
-
-	public void setTurno(char turno) {
-		this.turno = turno;
-	}
-
-	public Aula getAula() {
-		return aula;
-	}
-
-	public void setAula(Aula aula) {
-		this.aula = aula;
-	}
-
-	public boolean isLibre() {
-		return libre;
-	}
-
-	public void setLibre(boolean libre) {
-		this.libre = libre;
-	}
-
-	@Override
-	public String toString() {
-		return "Espacio [id=" + id + ", fecha=" + fecha + ", turno=" + turno + ", aula=" + aula + ", libre=" + libre
-				+ "]";
-	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Espacio other = (Espacio) obj;
-		return id == other.id;
+		return (aula.getNumero() == other.aula.getNumero()) && fecha.equals(other.getFecha()) && turno.equalsIgnoreCase(other.getTurno());
 	}
+
+
+	
+	
 }

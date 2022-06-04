@@ -33,12 +33,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/perfiles/lista").hasAnyAuthority("Auditor", "Administrador")
 		.antMatchers("/perfiles/lista/edit/**").hasAuthority("Administrador")
 		.antMatchers("/perfiles/lista/delete/**").hasAuthority("Administrador")
-		.antMatchers("/perfiles/lista").hasAnyAuthority("Auditor", "Administrador")
+		.antMatchers("/perfiles/lista/**").hasAnyAuthority("Auditor", "Administrador")
+		
 		.antMatchers("/usuarios/").hasAuthority("Administrador")
 		.antMatchers("/usuarios/lista").hasAnyAuthority("Auditor", "Administrador")
 		.antMatchers("/usuarios/lista/edit/**").hasAuthority("Administrador")
 		.antMatchers("/usuarios/lista/delete/**").hasAuthority("Administrador")
-					
+		.antMatchers("/usuarios/lista/**").hasAnyAuthority("Auditor", "Administrador")
+		
+		.antMatchers("/departamento/").hasAuthority("Administrador")
+		.antMatchers("/departamento/lista").hasAnyAuthority("Auditor", "Administrador")
+		.antMatchers("/departamento/lista/edit/**").hasAuthority("Administrador")
+		.antMatchers("/departamento/lista/delete/**").hasAuthority("Administrador")
+		
+		.antMatchers("/espacios/lista").hasAnyAuthority("Auditor", "Administrador")
+		.antMatchers("/espacios/crear/tradicional").hasAnyAuthority("Administrador")
+		.antMatchers("/espacios/crear/laboratorio").hasAnyAuthority("Administrador")
+		
 		.anyRequest().authenticated().and().formLogin().permitAll().and().logout().permitAll();
 	}
 	
