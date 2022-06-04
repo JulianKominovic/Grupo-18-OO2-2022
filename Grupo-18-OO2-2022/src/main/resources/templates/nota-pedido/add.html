@@ -43,29 +43,39 @@
 	</header>
 	
 	
-	  <table style="width:80%" border="1" 
-           class = "table table-striped table-responsive-md">
-    <thead>
-  <tr>
-    <th>Id</th>
-    <th>Cantidad estudiantes</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="nota:${notas}">
-     <td th:text="${nota.id}"></td>
-        <td th:text="${nota.cantEstudiantes}"></td>
-    
-        <td> <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" 
-                class="btn btn-primary">Update</a>
-                <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"
-                class="btn btn-danger">Delete</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+	<main>
 	
+	<h1>AGREGAR NOTA DE PEDIDO</h1>
+	
+	<p>TIPO DE PETICION</p>
+<select class="form-select" aria-label="Default select example" id="petition-type">
+
+  <option value="Curso" selected>Curso</option>
+  <option value="Final">Final</option>
+
+</select>
+		
+	
+	<form action="#" th:action="@{/nota-pedido/add}" th:object="${notaPedido}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				<p> Cantidad de estudiantes: <input type="number" min="0"  th:field="*{cantEstudiantes}" />
+					<small></small>
+			    </p>
+	            <p> Observaciones: <textarea type="text" th:field="*{observaciones}" />
+						<small></small>
+	            </p>
+	            
+				<p> Codigo de curso: <textarea type="text" th:field="*{codCurso}" />
+					<small></small>
+			</p> 
+
+			<p> Fecha de examen: <textarea type="text" th:field="*{fechaExamen}" />
+				<small></small>
+		</p>
+	           
+	           
+			<input type="submit" class="btn btn-primary btn-sm" value="Guardar" />
+		</form></main>
 
 
 
@@ -77,6 +87,15 @@
 		
 		
 	</footer>
+	
+	<script type="text/javascript">
+	
+	const typeOfPetition=document.querySelector("#petition-type")
+	typeOfPetition.addEventListener("change",(e)=>{
+		console.log(e.target.value)
+	})
+
+	</script>
 	
 </body>
 </html>

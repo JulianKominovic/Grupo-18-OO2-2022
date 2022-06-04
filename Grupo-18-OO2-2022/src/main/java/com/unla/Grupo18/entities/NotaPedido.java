@@ -15,10 +15,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Inheritance
 @Entity
 @Table(name = "nota_pedido")
-public abstract class NotaPedido {
+@Data
+@NoArgsConstructor
+public class NotaPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
