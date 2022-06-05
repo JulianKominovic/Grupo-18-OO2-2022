@@ -39,8 +39,12 @@ public class MateriaService implements IMateriaService {
 	public void save(Materia materia) {
 		// TODO Auto-generated method stub
 		materiaRepository.save(materia);
-	} 
-	
-	
-	
+	}
+
+	@Override
+	public List<Materia> getMateriasByCarrera(Long carreraId) {
+
+		return materiaRepository.getMateriasByCarrera(carreraId);
+	}
+
 }

@@ -26,6 +26,7 @@ public class ViewRouteHelper {
 	public final static String DEPARTAMENTO_REDIRECT_LISTA = "redirect:/departamento/lista";
 
 	public final static String NOTA_PEDIDO_LISTA = "nota-pedido/lista";
-	public final static String NOTA_PEDIDO_CREAR = "nota-pedido/crear";
+	public final static String NOTA_PEDIDO_ADMINISTRAR = "nota-pedido/manage";
+	public final static String NOTA_PEDIDO_AGREGAR = "nota-pedido/add";
 
 }
