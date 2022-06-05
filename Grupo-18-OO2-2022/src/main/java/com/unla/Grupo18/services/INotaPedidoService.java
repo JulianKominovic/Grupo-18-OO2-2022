@@ -12,4 +12,8 @@ public interface INotaPedidoService {
 	boolean eliminar(long id);
 
 	boolean save(NotaPedido obj);
+
+	NotaPedido aceptarPedido(Long id);
+
+	NotaPedido rechazarPedido(Long id);
 }

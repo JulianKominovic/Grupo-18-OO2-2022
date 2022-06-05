@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unla.Grupo18.entities.NotaPedido;
 import com.unla.Grupo18.repositories.INotaPedidoRepository;
 import com.unla.Grupo18.services.INotaPedidoService;
+import com.unla.Grupo18.util.NotaPedidoStatusEnum;
 
 @Service
 public class NotaPedidoService implements INotaPedidoService {
@@ -44,13 +45,30 @@ public class NotaPedidoService implements INotaPedidoService {
 	@Transactional
 	public boolean save(NotaPedido obj) {
 		boolean success = true;
+		System.out.println("NOTA PEDIDO NUEVO");
+		System.out.println(obj);
 		try {
 			repository.save(obj);
 		} catch (Exception e) {
 			success = false;
+			e.printStackTrace();
 		}
 		return success;
 
+	}
+
+	@Override
+	public NotaPedido aceptarPedido(Long id) {
+		NotaPedido nota = repository.getById(id);
+		nota.setStatus(NotaPedidoStatusEnum.ACEPTADO);
+		return repository.save(nota);
+	}
+
+	@Override
+	public NotaPedido rechazarPedido(Long id) {
+		NotaPedido nota = repository.getById(id);
+		nota.setStatus(NotaPedidoStatusEnum.RECHAZADO);
+		return repository.save(nota);
 	}
 
 }

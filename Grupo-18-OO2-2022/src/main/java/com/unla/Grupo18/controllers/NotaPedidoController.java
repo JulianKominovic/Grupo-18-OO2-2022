@@ -25,7 +25,7 @@ public class NotaPedidoController {
 		return ViewRouteHelper.NOTA_PEDIDO_ADMINISTRAR;
 	}
 
-	@GetMapping("/")
+	@GetMapping("")
 	public String index(Model model) {
 
 		List<NotaPedido> notas = notaPedidoServices.getAll();
@@ -33,18 +33,6 @@ public class NotaPedidoController {
 		model.addAttribute("notas", notas);
 
 		return ViewRouteHelper.NOTA_PEDIDO_LISTA;
-	}
-
-	@GetMapping("/add")
-	public String agregar(Model model) {
-
-//		TIPO DE PETICION
-
-		String tipoDePeticion = "curso";
-		model.addAttribute("tipoDePeticion", tipoDePeticion);
-		model.addAttribute("notaPedido", new NotaPedido());
-
-		return ViewRouteHelper.NOTA_PEDIDO_AGREGAR;
 	}
 
 }

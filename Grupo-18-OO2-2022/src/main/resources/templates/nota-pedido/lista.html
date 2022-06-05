@@ -1,82 +1,252 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head th:fragment="head">
+    <meta charset="UTF-8" />
+    <title>Objetos 2</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </head>
 
-<head th:fragment="head">
-	<meta charset="UTF-8" />
-	<title>Objetos 2</title>
-	<link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
-</head>
+  <body>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="http://localhost:8080/">Unla</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+           
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8080/nota-pedido/">Lista de pedidos</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8080/nota-pedido/manage">Administracion de pedidos</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Ir a...
+          </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="http://localhost:8080/usuarios/lista/">Lista usuarios</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/perfiles/lista/">Lista de perfiles</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8080/departamento/lista/">Lista de departamentos</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:8080/espacios/lista/">Lista de espacios</a></li>
+                  
+             
+              </ul>
+            </li>
+            
+            
+             </li>
+              <li class="nav-item">
+              <a class="nav-link text-danger" href="http://localhost:8080/logout">Cerrar sesion</a>
+            </li>
+           
+          </ul>
+         
+        </div>
+      </div>
+    </nav>
 
-<body>
-	<header th:fragment="header">
-		<header th:fragment="header">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				<a class="navbar-brand" href="/index">UNLa</a>
-				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav ml-auto">
+    <main class="mx-4 my-4 py-5">
+      <div class="col">
+        <div class="row">
+          <h2>Aulas tradicionales</h2>
+        </div>
+        <div class="row table-responsive">
+          <table
+            style="width: 80%"
+            border="1"
+            class="table table-middle table-hover table-responsive"
+          >
+            <thead class="table-dark">
+              <tr>
+                <th>Fecha</th>
+                <th>Departamento</th>
+                <th>Carrera</th>
+                <th>Cod. materia</th>
 
-						
+                <th>Edificio</th>
+                <th>Numero aula</th>
 
-						<li class="nav-item">
-							<a class="nav-link" href="manage">Gestionar pedidos</a>
-						</li>
+                <th>Cantidad de bancos</th>
+                <th>Pizarron</th>
+                <th>Tiene proyector</th>
 
-						<li class="nav-item">
-							<a class="nav-link" href="/logout">Cerrar sesion</a>
-						</li>
+                <th>Fecha de inicio de pedido</th>
 
-				</div>
-				</li>
-				</ul>
-				</div>
-			</nav>
-			<div class="alert alert-success alert-dismissable" th:if="${success != null}">
-				<label th:text="${success}"></label>
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			</div>
-		</header>
-	</header>
+                <th>Tipo de pedido</th>
+                <th>Cod. curso</th>
+                <th>Fecha final</th>
+
+                <th>Status</th>
+
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="list-tradicional">
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr class="my-5" />
+
+        <div class="row">
+          <h2>Laboratorio</h2>
+        </div>
+        <div class="row table-responsive">
+          <table style="width: 80%" border="1" class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Fecha</th>
+                <th>Departamento</th>
+                <th>Carrera</th>
+                <th>Cod. materia</th>
+
+                <th>Edificio</th>
+                <th>Numero aula</th>
+
+                <th>Cantidad PCs</th>
+                <th>Cant. sillas</th>
+
+                <th>Fecha de inicio de pedido</th>
+
+                <th>Tipo de pedido</th>
+                <th>Cod. curso</th>
+                <th>Fecha final</th>
+
+                <th>Status</th>
+
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="list-lab">
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      th:fragment="footer"
+      class="bg-dark text-center text-white fixed-bottom"
+    >
+      <div class="container">
+        <p>GRUPO 18</p>
+      </div>
+    </footer>
+
+    <script type="text/javascript">
+      const listaTradicional = document.querySelector("#list-tradicional");
+      const listaLab = document.querySelector("#list-lab");
+
+      const fetchNotes = () =>
+        fetch("http://localhost:8080/api/nota-pedido")
+          .then((res) => res.json())
+          .then(buildTable);
+
+      const acceptPetition = (id) => {
+        fetch("http://localhost:8080/api/nota-pedido/accept/" + id)
+          .then((res) => res.json())
+          .finally(() => {
+            fetchNotes();
+          });
+      };
+      const rejectPetition = (id) => {
+        fetch("http://localhost:8080/api/nota-pedido/reject/" + id)
+          .then((res) => res.json())
+          .finally(() => {
+            fetchNotes();
+          });
+      };
+
+      window.onload = () => {
+        fetchNotes();
+      };
+
+      const buildTable = (res) => {
+        listaTradicional.innerHTML = "";
+        listaLab.innerHTML = "";
+        res.forEach((item) => {
+          const tableToComplete = item?.espacio?.aula?.cantPC
+            ? listaLab
+            : listaTradicional;
+
+          tableToComplete.innerHTML += `
+		  <tr class='${(() => {
+        if (item?.status === "ACEPTADO") return "table-success";
+        if (item?.status === "ESPERANDO") return "table-warning";
+        if (item?.status === "RECHAZADO") return "table-danger";
+      })()}'>
+	  <td><b>${item?.espacio?.fecha}</b></td>
+			<td>${item?.materia?.carrera?.departamento?.departamento_name}</td>
+		<td>${item?.materia?.carrera?.carrera_name}</td>
+		<td>${item?.materia?.codMateria}</td>
+
+
 	
-	
-	  <table style="width:80%" border="1" 
-           class = "table table-striped table-responsive-md">
-    <thead>
-  <tr>
-    <th>Id</th>
-    <th>Cantidad estudiantes</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="nota:${notas}">
-     <td th:text="${nota.id}"></td>
-        <td th:text="${nota.cantEstudiantes}"></td>
-    
-        <td> <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" 
-                class="btn btn-primary">Update</a>
-                <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"
-                class="btn btn-danger">Delete</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+		<td>${item?.espacio?.aula?.edificio?.edificio_name}</td>
+		<td>${item?.espacio?.aula?.numero}</td>
+
+		<td>${
+      tableToComplete === listaTradicional
+        ? item?.espacio?.aula?.cantBancos
+        : item?.espacio?.aula?.cantPC
+    }</td>
+		<td>${
+      tableToComplete === listaTradicional
+        ? item?.espacio?.aula?.pizarron
+        : item?.espacio?.aula?.cantSillas
+    }</td>
+		${
+      tableToComplete === listaTradicional
+        ? `<td>${item?.espacio?.aula?.tieneProyector ? "✅" : "⛔"}</td>`
+        : ""
+    }
+
+		<td>${item?.fechaInicioPedido}</td>
+
+		<td>${item?.codCurso ? "Curso" : "Final"}</td>
+		<td>${item?.codCurso || "-"}</td>
+		<td>${item?.fechaExamen || "-"}</td>
+		<td>${(() => {
+      if (item?.status === "ACEPTADO")
+        return '<span class="badge rounded-pill bg-success">ACEPTADO</span>';
+      if (item?.status === "ESPERANDO")
+        return '<span class="badge rounded-pill bg-warning">ESPERANDO</span>';
+      if (item?.status === "RECHAZADO")
+        return '<span class="badge rounded-pill bg-danger">RECHAZADO</span>';
+    })()}</td>
 	
 
-
-
-	
-	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">
-		<div class="container">
-		<p>GRUPO 18</p>
-		</div>
+		<td>
+		  <button onclick="acceptPetition(${
+        item.id
+      })" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#myModal">Aceptar</button>
+		  <button onclick="rejectPetition(${
+        item.id
+      })" class="btn btn-danger">Rechazar</button>
+		</td></tr>
 		
-		
-	</footer>
-	
-</body>
+		`;
+        });
+      };
+    </script>
+  </body>
 </html>
