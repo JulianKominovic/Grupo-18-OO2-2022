@@ -28,7 +28,6 @@ import com.unla.Grupo18.entities.Final;
 import com.unla.Grupo18.entities.Materia;
 import com.unla.Grupo18.entities.NotaPedido;
 import com.unla.Grupo18.models.requests.PostNotaPedido;
-import com.unla.Grupo18.models.requests.TipoDeFechaEnum;
 import com.unla.Grupo18.services.IAulaService;
 import com.unla.Grupo18.services.ICarreraService;
 import com.unla.Grupo18.services.IEdificioService;
@@ -98,10 +97,13 @@ public class ApiController {
 
 	@PostMapping("/nota-pedido")
 	@ResponseBody
-	public String createNotaPedido(@RequestBody @Valid PostNotaPedido body) {
+	public ResponseEntity<String> createNotaPedido(@RequestBody @Valid PostNotaPedido body) {
+
+		ResponseEntity<String> response = null;
 
 		try {
-			if (body.getTipo_de_fecha() == TipoDeFechaEnum.UNICA) {
+
+			for (LocalDate date : body.getFechas_multiples()) {
 
 				NotaPedido nota = null;
 				// CHECKEO SI LA NOTA PEDIDO ES PARA UN FINAL O CURSO
@@ -110,7 +112,7 @@ public class ApiController {
 					((Curso) nota).setCodCurso(body.getCodCurso());
 				} else {
 					nota = new Final();
-					((Final) nota).setFechaExamen(body.getFecha_unica());
+					((Final) nota).setFechaExamen(date);
 				}
 				// SETEANDO LAS PROPS EN COMUN
 				nota.setFechaInicioPedido(LocalDateTime.now());
@@ -123,9 +125,15 @@ public class ApiController {
 				espacio.setAula(aulaService.getAulaById(body.getAulaNumero()));
 				espacio.setLibre(false);
 				espacio.setTurno(body.getTurno());
-				espacio.setFecha(body.getFecha_unica());
+				espacio.setFecha(date);
 
-				nota.setEspacio(espacioService.save(espacio));
+				try {
+					nota.setEspacio(espacioService.save(espacio));
+				} catch (Exception e) {
+					System.out.println("Espacio save falló");
+					e.printStackTrace();
+					response = new ResponseEntity<>("FAILED - 500", HttpStatus.BAD_REQUEST);
+				}
 
 				// GUARDADO
 
@@ -133,70 +141,23 @@ public class ApiController {
 					if (body.getCodCurso() != null) {
 						notaService.save((Curso) nota);
 					} else {
-
 						notaService.save((Final) nota);
 					}
 				} catch (Exception e) {
 					System.out.println("Fallo al guardar la nota");
 					e.printStackTrace();
+					response = new ResponseEntity<>("FAILED - 500", HttpStatus.BAD_REQUEST);
 				}
-
-			}
-
-			if (body.getTipo_de_fecha() == TipoDeFechaEnum.MULTIPLE) {
-				for (LocalDate date : body.getFechas_multiples()) {
-
-					NotaPedido nota = null;
-					// CHECKEO SI LA NOTA PEDIDO ES PARA UN FINAL O CURSO
-					if (body.getCodCurso() != null) {
-						nota = new Curso();
-						((Curso) nota).setCodCurso(body.getCodCurso());
-					} else {
-						nota = new Final();
-						((Final) nota).setFechaExamen(date);
-					}
-					// SETEANDO LAS PROPS EN COMUN
-					nota.setFechaInicioPedido(LocalDateTime.now());
-					nota.setCantEstudiantes(body.getCantEstudiantes());
-					nota.setObservaciones(body.getObservaciones());
-					nota.setMateria(materiaService.buscar(body.getMateria()));
-					nota.setStatus(NotaPedidoStatusEnum.ESPERANDO);
-
-					Espacio espacio = new Espacio();
-					espacio.setAula(aulaService.getAulaById(body.getAulaNumero()));
-					espacio.setLibre(false);
-					espacio.setTurno(body.getTurno());
-					espacio.setFecha(date);
-
-					try {
-						nota.setEspacio(espacioService.save(espacio));
-					} catch (Exception e) {
-						System.out.println("Espacio save falló");
-						e.printStackTrace();
-					}
-
-					// GUARDADO
-
-					try {
-						if (body.getCodCurso() != null) {
-							notaService.save((Curso) nota);
-						} else {
-							notaService.save((Final) nota);
-						}
-					} catch (Exception e) {
-						System.out.println("Fallo al guardar la nota");
-						e.printStackTrace();
-					}
-				}
-
 			}
 
 		} catch (Exception e) {
 			System.out.println("ERROR AL GUARDAR EL ESPACIO");
 			System.out.println(e);
+			response = new ResponseEntity<>("FAILED - 500", HttpStatus.BAD_REQUEST);
 		}
 
-		return "OK";
+		response = new ResponseEntity<>("OK - 200", HttpStatus.OK);
+		return response;
 	}
 
 }

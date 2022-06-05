@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -51,7 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/espacios/crear/tradicional").hasAnyAuthority("Administrador")
 				.antMatchers("/espacios/crear/laboratorio").hasAnyAuthority("Administrador")
 
-				.antMatchers("/api/**").hasAnyAuthority("Auditor", "Administrador")
+				.antMatchers("/nota-pedido/").hasAnyAuthority("Auditor", "Administrador")
+				.antMatchers("/nota-pedido/manage").hasAnyAuthority("Administrador")
+				.antMatchers(HttpMethod.POST, "/api/nota-pedido/").hasAnyAuthority("Auditor", "Administrador")
+				.antMatchers("/api/nota-pedido/accept/**").hasAnyAuthority("Administrador")
+				.antMatchers("/api/nota-pedido/reject/**").hasAnyAuthority("Administrador").antMatchers("/api/**")
+				.hasAnyAuthority("Auditor", "Administrador")
 
 				.anyRequest().authenticated().and().formLogin().permitAll().and().logout().permitAll();
 	}

@@ -34,7 +34,7 @@
               <a class="nav-link" href="http://localhost:8080/nota-pedido/">Lista de pedidos</a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="http://localhost:8080/nota-pedido/manage">Administracion de pedidos</a>
+              <a class="nav-link" href="http://localhost:8080/nota-pedido/manage" sec:authorize="hasAuthority('Administrador')">Administracion de pedidos</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -95,7 +95,7 @@
 
                 <th>Status</th>
 
-                <th>Acciones</th>
+                <th sec:authorize="hasAuthority('Administrador')" id="table-actions">Acciones</th>
               </tr>
             </thead>
             <tbody id="list-tradicional">
@@ -132,7 +132,7 @@
 
                 <th>Status</th>
 
-                <th>Acciones</th>
+                <th sec:authorize="hasAuthority('Administrador')" id="table-actions">Acciones</th>
               </tr>
             </thead>
             <tbody id="list-lab">
@@ -155,6 +155,8 @@
     <script type="text/javascript">
       const listaTradicional = document.querySelector("#list-tradicional");
       const listaLab = document.querySelector("#list-lab");
+      
+      const isAdmin=document.querySelectorAll("#table-actions")?.length > 0 || false
 
       const fetchNotes = () =>
         fetch("http://localhost:8080/api/nota-pedido")
@@ -235,17 +237,21 @@
     })()}</td>
 	
 
-		<td>
-		  <button onclick="acceptPetition(${
-        item.id
-      })" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#myModal">Aceptar</button>
-		  <button onclick="rejectPetition(${
-        item.id
-      })" class="btn btn-danger">Rechazar</button>
-		</td></tr>
+		${(()=>isAdmin ?`<td class="acciones_column" >
+    		  <button onclick="acceptPetition(${
+              item.id
+            })" class="btn btn-success mb-2"  data-bs-toggle="modal" data-bs-target="#myModal" >Aceptar</button>
+      		  <button onclick="rejectPetition(${
+              item.id
+            })" class="btn btn-danger">Rechazar</button>
+      		</td></tr>` :"")()}
 		
 		`;
         });
+        
+        document.querySelectorAll(".acciones_column").forEach(item=>item.setAttribute("sec:authorize","hasAuthority('Administrador')"))
+        
+        
       };
     </script>
   </body>

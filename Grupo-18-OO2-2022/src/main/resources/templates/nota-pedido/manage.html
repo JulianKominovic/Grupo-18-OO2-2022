@@ -10,7 +10,11 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" th:href="@{/css/datepicker.material.css}" />
-       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
     <style>
       .disabled {
         opacity: 0.4;
@@ -22,7 +26,24 @@
   </head>
 
   <body>
-   <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+    <div class="modal" tabindex="-1" id="creation-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title"></h5>
+          </div>
+          <div class="modal-body" id="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="modal-dismiss">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light justify-content-between"
+    >
       <div class="container-fluid">
         <a class="navbar-brand" href="http://localhost:8080/">Unla</a>
         <button
@@ -36,37 +57,75 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarSupportedContent"
+        >
           <ul class="navbar-nav mb-2 mb-lg-0">
-           
             <li class="nav-item">
-              <a class="nav-link" href="http://localhost:8080/nota-pedido/">Lista de pedidos</a>
+              <a class="nav-link" href="http://localhost:8080/nota-pedido/"
+                >Lista de pedidos</a
+              >
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="http://localhost:8080/nota-pedido/manage">Administracion de pedidos</a>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="http://localhost:8080/nota-pedido/manage"
+                sec:authorize="hasAuthority('Administrador')"
+                >Administracion de pedidos</a
+              >
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Ir a...
-          </a>
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Ir a...
+              </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="http://localhost:8080/usuarios/lista/">Lista usuarios</a></li>
-                <li><a class="dropdown-item" href="http://localhost:8080/perfiles/lista/">Lista de perfiles</a></li>
-                <li><a class="dropdown-item" href="http://localhost:8080/departamento/lista/">Lista de departamentos</a></li>
-                  <li><a class="dropdown-item" href="http://localhost:8080/espacios/lista/">Lista de espacios</a></li>
-                  
-             
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/usuarios/lista/"
+                    >Lista usuarios</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/perfiles/lista/"
+                    >Lista de perfiles</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/departamento/lista/"
+                    >Lista de departamentos</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/espacios/lista/"
+                    >Lista de espacios</a
+                  >
+                </li>
               </ul>
             </li>
-            
-            
-             </li>
-              <li class="nav-item">
-              <a class="nav-link text-danger" href="http://localhost:8080/logout">Cerrar sesion</a>
+
+            <li class="nav-item">
+              <a
+                class="nav-link text-danger"
+                href="http://localhost:8080/logout"
+                >Cerrar sesion</a
+              >
             </li>
-           
           </ul>
-         
         </div>
       </div>
     </nav>
@@ -97,7 +156,11 @@
 
       <br />
 
-      <form action="#" class="disabled my-5" id="nota_pedido_form">
+      <form
+        action="#"
+        class="disabled my-5 needs-validation"
+        id="nota_pedido_form"
+      >
         <h4>Informacion de pedido</h4>
 
         <div class="mb-3 row">
@@ -121,45 +184,17 @@
         <div class="row">
           <h4>Fecha</h4>
 
-          <label for="tipo_fecha_pedido" class="form-label"
-            >Tipo de fecha</label
-          >
-          <select
-            class="form-select"
-            id="tipo_fecha_pedido"
-            name="tipo_de_fecha"
-          >
-            <option value="" selected>Elija un tipo de fecha</option>
-            <option value="UNICA">Única</option>
-            <option value="MULTIPLE">Multiples</option>
-          </select>
-
-          <div class="row disabled" id="formulario_fechas">
-            <div class="col" id="formulario_fecha_unica">
-              <label for="fecha_unica_input" class="form-label"
-                >Fecha unica</label
-              >
-              <input
-                type="date"
-                class="form-control"
-                id="fecha_unica_input"
-                name="fecha_unica"
-              />
-              <div id="emailHelp" class="form-text">
-                Introduce la fecha unica
-              </div>
-            </div>
-            <div class="col" id="formulario_fecha_multiple">
-             <label for="fechas_multiples" class="form-label d-block"
-                >Fechas multiples</label
-              >
-              <input
-                type="text"
-                id="fechas_multiples"
-                name="fechas_multiples"
-                class="form-control"
-              />
-            </div>
+          <div class="col" id="formulario_fecha_multiple">
+            <label for="fechas_multiples" class="form-label d-block"
+              >Fecha</label
+            >
+            <input
+              autocomplete="off"
+              type="text"
+              id="fechas_multiples"
+              name="fechas_multiples"
+              class="form-control"
+            />
           </div>
         </div>
 
@@ -175,6 +210,7 @@
                 class="form-select"
                 id="edificio_aula"
                 aria-label="Default select example"
+                required
               >
                 <option selected>Elija un edificio</option>
               </select>
@@ -209,6 +245,7 @@
                 id="turno_aula"
                 name="turno"
                 aria-label="Default select example"
+                required
               >
                 <option selected>Elija un turno</option>
                 <option value="M">Mañana</option>
@@ -229,6 +266,7 @@
               class="form-select"
               id="materia_carrera"
               aria-label="Default select example"
+              required
             >
               <option selected>Elija una carrera</option>
             </select>
@@ -240,6 +278,7 @@
               id="materia_nombre"
               aria-label="Default select example"
               name="materia"
+              required
             >
               <option selected>Elija la materia</option>
             </select>
@@ -261,6 +300,7 @@
               id="detalle_estudiantes"
               min="1"
               name="cantEstudiantes"
+              required
             />
           </div>
           <div class="col">
@@ -288,8 +328,8 @@
         <p>GRUPO 18</p>
       </div>
     </footer>
-    
-     <script type="text/javascript" th:src="@{/js/datepicker.js}" ></script>
+
+    <script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
 
     <script type="text/javascript">
       // ELEMENTS
@@ -310,14 +350,21 @@
       const materiaCarreraElement = $("#materia_carrera");
       const materiaNombreElement = $("#materia_nombre");
 
-      const tipoFechasPedidoElement = $("#tipo_fecha_pedido");
-      const formularioFechasElement = $("#formulario_fechas");
-      const formularioFechaUnica = $("#formulario_fecha_unica");
       const formularioFechaMultiple = $("#formulario_fecha_multiple");
 
       const datepicker = new Datepicker("#fechas_multiples", {
-    	    multiple: true
+        multiple: true,
       });
+
+      const myModal = new bootstrap.Modal(
+        document.getElementById("creation-modal"),
+        {
+          keyboard: false,
+        }
+      );
+      const modalTitle = $("#modal-title");
+      const modalBody = $("#modal-body");
+      const modalDismiss = $("#modal-dismiss");
 
       //VARIABLES
       let petitionType;
@@ -345,14 +392,15 @@
         const obj = {};
         formData.forEach((value, key) => (obj[key] = value));
         console.log(obj);
-        
-        if(obj["fechas_multiples"]){
-        	obj["fechas_multiples"]=obj?.fechas_multiples?.split(",")
-            		obj["fechas_multiples"]=	obj["fechas_multiples"].map(item=>{
-            			  
-            			  const fechas =item.split("/")
-            			  return `${fechas[2]}-${+fechas[0]<10?"0"+fechas[0]:fechas[0]}-${fechas[1]<10?"0"+fechas[1]:fechas[1]}`
-            			})
+
+        if (obj["fechas_multiples"]) {
+          obj["fechas_multiples"] = obj?.fechas_multiples?.split(",");
+          obj["fechas_multiples"] = obj["fechas_multiples"].map((item) => {
+            const fechas = item.split("/");
+            return `${fechas[2]}-${
+              +fechas[0] < 10 ? "0" + fechas[0] : fechas[0]
+            }-${fechas[1] < 10 ? "0" + fechas[1] : fechas[1]}`;
+          });
         }
 
         fetch("http://localhost:8080/api/nota-pedido", {
@@ -361,32 +409,41 @@
           },
           method: "POST",
           body: JSON.stringify(obj),
-        });
-      });
-
-      tipoFechasPedidoElement.addEventListener("change", (e) => {
-        console.log(e.target.value);
-        if (e.target.value) {
-          formularioFechasElement.classList.remove("disabled");
-        } else {
-          formularioFechasElement.classList.add("disabled");
-        }
-
-        if (e.target.value === "UNICA") {
-          [...formularioFechaMultiple.children].forEach(
-            (item) => (item.value = "")
-          );
-          formularioFechaUnica.classList.remove("disabled");
-          formularioFechaMultiple.classList.add("disabled");
-        }
-
-        if (e.target.value === "MULTIPLE") {
-          [...formularioFechaUnica.children].forEach(
-            (item) => (item.value = "")
-          );
-          formularioFechaUnica.classList.add("disabled");
-          formularioFechaMultiple.classList.remove("disabled");
-        }
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              modalTitle.innerHTML = "Éxito!";
+              modalBody.innerHTML = "Todo salió correctamente.";
+              modalDismiss.classList.remove("btn-danger");
+              modalDismiss.classList.add("btn-success");
+              modalDismiss.innerHTML = "Excelente";
+              modalDismiss.addEventListener("click", () => {
+                window.location.href = "http://localhost:8080/nota-pedido";
+              });
+              myModal.toggle();
+            } else {
+              modalTitle.innerHTML = "Falló!";
+              modalBody.innerHTML = "Ocurrio un error.";
+              modalDismiss.classList.remove("btn-success");
+              modalDismiss.classList.add("btn-danger");
+              modalDismiss.innerHTML = "Ok...";
+              modalDismiss.addEventListener("click", () => {
+                myModal.hide();
+              });
+              myModal.toggle();
+            }
+          })
+          .catch(() => {
+            modalTitle.innerHTML = "Falló!";
+            modalBody.innerHTML = "Ocurrio un error.";
+            modalDismiss.classList.add("btn");
+            modalDismiss.classList.add("btn-danger");
+            modalDismiss.innerHTML = "Ok...";
+            modalDismiss.addEventListener("click", () => {
+              myModal.hide();
+            });
+            myModal.toggle();
+          });
       });
 
       edificioAulaElement.addEventListener("change", (e) => {
