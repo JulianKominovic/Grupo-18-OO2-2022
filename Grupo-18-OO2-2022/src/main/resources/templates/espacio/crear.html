@@ -63,7 +63,7 @@
 				    <select class="form-control" th:field="${espacio.aula}">
 				    	<option th:each="aula:${aulas}"
 				    		th:value="${aula.id}"
-				    		th:text="${aula.numero}"
+				    		th:text="${aula.edificio.edificio_name} +' - '+ ${aula.numero}"
 				    	/>
 				    </select>
 				  </div>

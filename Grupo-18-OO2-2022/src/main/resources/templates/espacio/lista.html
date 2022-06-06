@@ -66,6 +66,7 @@
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
+					<th scope="col">Edificio</th>
 					<th scope="col">N° Aula</th>
 					<th scope="col">Fecha</th>
 					<th scope="col">Turno</th>
@@ -75,6 +76,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="e:${espacios}">
+					<th scope="row" th:text="${e.aula.edificio.edificio_name}"></th>
 					<th scope="row" th:text="${e.aula.numero}"></th>
 					<th scope="row" th:text="${e.fecha}"></th>
 					<th scope="row" th:text="${e.turno}"></th>

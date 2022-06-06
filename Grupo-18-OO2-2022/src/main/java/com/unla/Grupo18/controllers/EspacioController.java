@@ -42,9 +42,9 @@ public class EspacioController {
 		List<Espacio> listado = espacioService.getAll();
 		List<Espacio> espacios = new ArrayList<Espacio>();
 		for (Espacio e : listado) {
-			//if(!LocalDate.now().isBefore(e.getFecha())) { 
-			//	espacioService.eliminar(e.getId());
-			//}
+			if(!LocalDate.now().isBefore(e.getFecha())) { 
+				espacioService.eliminar(e.getId());
+			}
 			espacios.add(e);
 		}
 		model.addAttribute("titulo", "Lista de espacios");
