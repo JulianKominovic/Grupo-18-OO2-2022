@@ -354,6 +354,20 @@
 
       const datepicker = new Datepicker("#fechas_multiples", {
         multiple: true,
+        onChange: (value) => {
+            document.querySelector("#fechas_multiples").value = JSON.stringify(
+              value.map(
+                (date) =>
+                  `${date.getUTCFullYear()}-${
+                    date.getUTCMonth() + 1 < 10
+                      ? "0" + (date.getUTCMonth() + 1)
+                      : date.getUTCMonth() + 1
+                  }-${
+                    date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+                  }`
+              )
+            );
+          },
       });
 
       const myModal = new bootstrap.Modal(
@@ -394,13 +408,7 @@
         console.log(obj);
 
         if (obj["fechas_multiples"]) {
-          obj["fechas_multiples"] = obj?.fechas_multiples?.split(",");
-          obj["fechas_multiples"] = obj["fechas_multiples"].map((item) => {
-            const fechas = item.split("/");
-            return `${fechas[2]}-${
-              +fechas[0] < 10 ? "0" + fechas[0] : fechas[0]
-            }-${fechas[1] < 10 ? "0" + fechas[1] : fechas[1]}`;
-          });
+          obj["fechas_multiples"]=JSON.parse( obj["fechas_multiples"])
         }
 
         fetch("http://localhost:8080/api/nota-pedido", {
