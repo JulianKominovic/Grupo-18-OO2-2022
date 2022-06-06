@@ -1,5 +1,7 @@
 package com.unla.Grupo18.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,16 +14,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data 
 @NoArgsConstructor
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)  
+@Getter
+@Setter
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
 @Table(name = "aula")
 public abstract class Aula{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected long id;
 	
 	@Column(name = "numero")
@@ -31,5 +37,11 @@ public abstract class Aula{
 	@ManyToOne
 	@JoinColumn(name = "edificio_id")
 	protected Edificio edificio;
+
+	@Override
+	public boolean equals(Object obj) {
+		Aula other = (Aula) obj;
+		return Objects.equals(edificio, other.edificio) && numero == other.numero;
+	}
 
 }
