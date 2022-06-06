@@ -33,13 +33,13 @@
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
-					
+						
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/carrera/lista/}">Carrera</a>
-					</li>
-					
-
+							th:href="@{/materia/lista/}">Materia</a>
+					</li>	
+						
+						
 					<li class="nav-item">
 						<a class="nav-link" href="/logout">Cerrar sesion</a>
 					</li>
@@ -60,19 +60,21 @@
 		<div class="card-header bg-dark text-white" th:text="${titulo}"> </div>
 		<div class="card-body">
 
-			<form action="#" th:action="@{/perfiles/}" th:object="${perfil}" method="post">
+			<form action="#" th:action="@{/carrera/}" th:object="${carrera}" method="post">
 				<input type="hidden" th:field="*{id}" />
-				<p> Rol del Perfil: <input type="text" th:field="*{rol}" />
-					<small class="form-text text-danger" th:if="${#fields.hasErrors('rol')}"
-					th:errors="*{rol}" >
-				    </small>
-					</p>
+				
+				<p> Carrera: <input type="text" th:field="*{carrera_name}" />
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('carrera_name')}" 
+					th:erros="*{carrera_name}"></small>
+				</p>
 
 				<input type="submit" />
 			</form>
 		</div>
 	</div>
-
+	
+	
+	
 	<div class="container"> </div>
 
 	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">

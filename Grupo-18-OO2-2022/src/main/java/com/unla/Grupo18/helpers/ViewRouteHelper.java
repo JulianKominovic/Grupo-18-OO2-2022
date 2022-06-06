@@ -27,5 +27,15 @@ public class ViewRouteHelper {
 
 	public final static String NOTA_PEDIDO_LISTA = "nota-pedido/lista";
 	public final static String NOTA_PEDIDO_CREAR = "nota-pedido/crear";
+	
+	public final static String CARRERA_LISTA = "carrera/lista"; 
+	public final static String CARRERA_CREAR = "/carrera/crear"; 
+	public final static String CARRERA_REDIRECT = "redirect:/carrera/"; 
+	public final static String CARRERA_REDIRECT_LISTA = "redirect::/carrera/lista";
+	
+	public final static String MATERIA_LISTA = "materia/lista"; 
+	public final static String MATERIA_CREAR = "/materia/crear"; 
+	public final static String MATERIA_REDIRECT = "redirect:/materia/"; 
+	public final static String MATERIA_REDIRECT_LISTA = "redirect::/materia/lista";
 
 }

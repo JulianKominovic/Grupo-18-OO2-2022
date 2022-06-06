@@ -64,7 +64,7 @@ public class DepartamentoController {
 	@GetMapping("lista/edit/{id}")
 	public String editar(@PathVariable("id") long id, Model model) {
 		Departamento departamento = departamentoService.buscar(id); 
-		model.addAttribute("titulo", "Editar perfil");
+		model.addAttribute("titulo", "Editar departamento");
 		model.addAttribute("departamento", departamento);
 		return ViewRouteHelper.DEPARTAMENTO_CREAR;
 	}
@@ -72,8 +72,8 @@ public class DepartamentoController {
 	@GetMapping("lista/delete/{id}")
 	public String eliminar(@PathVariable("id") long id,RedirectAttributes attribute) {
 		departamentoService.eliminar(id);
-		System.out.println("Perfil eliminado con exito");
-		attribute.addFlashAttribute("warning","Perfil eliminado con exito");
+		System.out.println("Departamento eliminado con exito");
+		attribute.addFlashAttribute("warning","Departamento eliminado con exito");
 		return ViewRouteHelper.DEPARTAMENTO_REDIRECT_LISTA;
 	}
 	
