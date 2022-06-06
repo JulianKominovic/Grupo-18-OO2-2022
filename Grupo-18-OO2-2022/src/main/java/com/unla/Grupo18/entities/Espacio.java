@@ -50,7 +50,7 @@ public class Espacio {
 	@Override
 	public boolean equals(Object obj) {
 		Espacio other = (Espacio) obj;
-		return (aula.getNumero() == other.aula.getNumero()) && fecha.equals(other.getFecha())
+		return (aula.equals(other.aula)) && fecha.equals(other.getFecha())
 				&& turno.equalsIgnoreCase(other.getTurno());
 	}
 
