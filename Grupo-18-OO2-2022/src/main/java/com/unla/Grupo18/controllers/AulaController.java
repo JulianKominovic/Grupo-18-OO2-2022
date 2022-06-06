@@ -38,6 +38,7 @@ public class AulaController {
 	private ILaboratorioService laboratorioService;
 	@Autowired
 	private IAulaService aulaService;
+
 	
 	@GetMapping("/lista")
 	public String listarEspacios(Model model) {
