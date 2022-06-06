@@ -29,13 +29,17 @@
 							</li>
 							
 							<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/departamento/lista/}">Departamentos</a>
-					       </li>
-					       <li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/nota-pedido}">Pedidos</a>
-					</li>
+								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+								th:href="@{/departamento/lista/}">Departamentos</a>
+					      	 </li>
+							 <li class="nav-item">
+								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+								th:href="@{/aulas/lista/}">Aulas</a>
+							</li>
+							 <li class="nav-item">
+								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+									th:href="@{/nota-pedido}">Pedidos</a>
+							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="/logout">Cerrar sesion</a>
 							</li>
