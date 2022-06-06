@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:fragment="head">
+    <meta charset="UTF-8" />
+    <title>Objetos 2</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/datepicker.material.css}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .disabled {
+        opacity: 0.4;
+        user-select: none;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="modal" tabindex="-1" id="creation-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title"></h5>
+          </div>
+          <div class="modal-body" id="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="modal-dismiss">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light justify-content-between"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="http://localhost:8080/">Unla</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarSupportedContent"
+        >
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8080/nota-pedido/"
+                >Lista de pedidos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="http://localhost:8080/nota-pedido/manage"
+                sec:authorize="hasAuthority('Administrador')"
+                >Administracion de pedidos</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Ir a...
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/usuarios/lista/"
+                    >Lista usuarios</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/perfiles/lista/"
+                    >Lista de perfiles</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/departamento/lista/"
+                    >Lista de departamentos</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/espacios/lista/"
+                    >Lista de espacios</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a
+                class="nav-link text-danger"
+                href="http://localhost:8080/logout"
+                >Cerrar sesion</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <h1>Administración de pedidos</h1>
+      <div class="form-check">
+        <h4>Tipo de pedido</h4>
+        <input
+          class="form-check-input"
+          type="radio"
+          name="tipoPedido"
+          id="type_final"
+          value="final"
+        />
+        <label class="form-check-label" for="type_final"> Final </label>
+      </div>
+      <div class="form-check mb-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="tipoPedido"
+          id="type_curso"
+          value="curso"
+        />
+        <label class="form-check-label" for="type_curso"> Curso </label>
+      </div>
+
+      <br />
+
+      <form
+        action="#"
+        class="disabled my-5 needs-validation"
+        id="nota_pedido_form"
+      >
+        <h4>Informacion de pedido</h4>
+
+        <div class="mb-3 row">
+          <div class="col">
+            <label for="cod_curso" class="form-label">Codigo del curso</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cod_curso"
+              placeholder="ABC123-0"
+              name="codCurso"
+            />
+            <div id="emailHelp" class="form-text">
+              Introduce el codigo del curso
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-5" />
+
+        <div class="row">
+          <h4>Fecha</h4>
+
+          <div class="col" id="formulario_fecha_multiple">
+            <label for="fechas_multiples" class="form-label d-block"
+              >Fecha</label
+            >
+            <input
+              autocomplete="off"
+              type="text"
+              id="fechas_multiples"
+              name="fechas_multiples"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <hr class="my-5" />
+
+        <h4>Aula</h4>
+
+        <div class="mb-3 row">
+          <div class="row">
+            <div class="col">
+              <label for="edificio_aula" class="form-label">Edificio</label>
+              <select
+                class="form-select"
+                id="edificio_aula"
+                aria-label="Default select example"
+                required
+              >
+                <option selected>Elija un edificio</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <h5 class="my-4">Elegir aula</h5>
+            <div class="row">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Numero</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Pizarron</th>
+                    <th scope="col">Tiene proyector</th>
+                    <th scope="col">Cantidad de PCs</th>
+                    <th scope="col">Cantidad de Sillas</th>
+                    <th scope="col">Seleccion</th>
+                  </tr>
+                </thead>
+                <tbody id="choose_aula_number"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="turno_aula" class="form-label">Turno</label>
+              <select
+                class="form-select"
+                id="turno_aula"
+                name="turno"
+                aria-label="Default select example"
+                required
+              >
+                <option selected>Elija un turno</option>
+                <option value="M">Mañana</option>
+                <option value="N">Noche</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-5" />
+
+        <h4>Materia</h4>
+
+        <div class="mb-3 row">
+          <div class="col">
+            <label for="materia_carrera" class="form-label">Carrera</label>
+            <select
+              class="form-select"
+              id="materia_carrera"
+              aria-label="Default select example"
+              required
+            >
+              <option selected>Elija una carrera</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="materia_nombre" class="form-label">Materia</label>
+            <select
+              class="form-select"
+              id="materia_nombre"
+              aria-label="Default select example"
+              name="materia"
+              required
+            >
+              <option selected>Elija la materia</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="my-5" />
+
+        <h4>Detalles del pedido</h4>
+
+        <div class="mb-3 row">
+          <div class="col">
+            <label for="detalle_estudiantes" class="form-label"
+              >Cantidad de estudiantes</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="detalle_estudiantes"
+              min="1"
+              name="cantEstudiantes"
+              required
+            />
+          </div>
+          <div class="col">
+            <label for="detalle_observaciones" class="form-label"
+              >Observaciones</label
+            >
+            <textarea
+              name="observaciones"
+              class="form-control"
+              id="detalle_observaciones"
+              rows="6"
+            ></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear pedido</button>
+      </form>
+    </main>
+
+    <footer
+      th:fragment="footer"
+      class="bg-dark text-center text-white fixed-bottom"
+    >
+      <div class="container">
+        <p>GRUPO 18</p>
+      </div>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
+
+    <script type="text/javascript">
+      // ELEMENTS
+      const $ = (selector) => document.querySelector(selector);
+      const formElement = $("#nota_pedido_form");
+
+      const codCursoElement = $("#cod_curso");
+      const fechaFinalElement = $("#fecha_final");
+
+      const petitionTypeFinalElement = $("#type_final");
+      const petitionTypeCursoElement = $("#type_curso");
+
+      const edificioAulaElement = $("#edificio_aula");
+      const numeroAulaElement = $("#numero_aula");
+
+      const chooseAulaNumberElement = $("#choose_aula_number");
+
+      const materiaCarreraElement = $("#materia_carrera");
+      const materiaNombreElement = $("#materia_nombre");
+
+      const formularioFechaMultiple = $("#formulario_fecha_multiple");
+
+      const datepicker = new Datepicker("#fechas_multiples", {
+        multiple: true,
+      });
+
+      const myModal = new bootstrap.Modal(
+        document.getElementById("creation-modal"),
+        {
+          keyboard: false,
+        }
+      );
+      const modalTitle = $("#modal-title");
+      const modalBody = $("#modal-body");
+      const modalDismiss = $("#modal-dismiss");
+
+      //VARIABLES
+      let petitionType;
+
+      //LISTENERS
+      petitionTypeFinalElement.addEventListener("click", (e) => {
+        petitionType = e.target.value;
+        formElement.classList.remove("disabled");
+        codCursoElement.setAttribute("disabled", true);
+        fechaFinalElement.removeAttribute("disabled");
+        codCursoElement.value = "";
+      });
+      petitionTypeCursoElement.addEventListener("click", (e) => {
+        petitionType = e.target.value;
+        formElement.classList.remove("disabled");
+        codCursoElement.removeAttribute("disabled");
+        fechaFinalElement.setAttribute("disabled", true);
+        fechaFinalElement.value = "";
+      });
+
+      formElement.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const obj = {};
+        formData.forEach((value, key) => (obj[key] = value));
+        console.log(obj);
+
+        if (obj["fechas_multiples"]) {
+          obj["fechas_multiples"] = obj?.fechas_multiples?.split(",");
+          obj["fechas_multiples"] = obj["fechas_multiples"].map((item) => {
+            const fechas = item.split("/");
+            return `${fechas[2]}-${
+              +fechas[0] < 10 ? "0" + fechas[0] : fechas[0]
+            }-${fechas[1] < 10 ? "0" + fechas[1] : fechas[1]}`;
+          });
+        }
+
+        fetch("http://localhost:8080/api/nota-pedido", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              modalTitle.innerHTML = "Éxito!";
+              modalBody.innerHTML = "Todo salió correctamente.";
+              modalDismiss.classList.remove("btn-danger");
+              modalDismiss.classList.add("btn-success");
+              modalDismiss.innerHTML = "Excelente";
+              modalDismiss.addEventListener("click", () => {
+                window.location.href = "http://localhost:8080/nota-pedido";
+              });
+              myModal.toggle();
+            } else {
+              modalTitle.innerHTML = "Falló!";
+              modalBody.innerHTML = "Ocurrio un error.";
+              modalDismiss.classList.remove("btn-success");
+              modalDismiss.classList.add("btn-danger");
+              modalDismiss.innerHTML = "Ok...";
+              modalDismiss.addEventListener("click", () => {
+                myModal.hide();
+              });
+              myModal.toggle();
+            }
+          })
+          .catch(() => {
+            modalTitle.innerHTML = "Falló!";
+            modalBody.innerHTML = "Ocurrio un error.";
+            modalDismiss.classList.add("btn");
+            modalDismiss.classList.add("btn-danger");
+            modalDismiss.innerHTML = "Ok...";
+            modalDismiss.addEventListener("click", () => {
+              myModal.hide();
+            });
+            myModal.toggle();
+          });
+      });
+
+      edificioAulaElement.addEventListener("change", (e) => {
+        fetch("http://localhost:8080/api/aulas/" + e.target.value)
+          .then((res) => res.json())
+          .then((res) => {
+            chooseAulaNumberElement.innerHTML = `
+
+
+            ${res
+              .map((item) => {
+                return `
+          <tr>
+              <th scope="row">${item.numero}</th>
+           <td>${
+             item?.cantPC || item?.cantSillas ? "Laboratorio" : "Tradicional"
+           }</td>
+              <td>${item?.pizarron || "-"}</td>
+              <td>${item?.tieneProyector ? "✅" : "⛔"}</td>
+              <td>${item?.cantPC || "-"}</td>
+              <td>${item?.cantSillas || "-"}</td>
+           <td>
+          <input
+          	  class="form-check-input"
+          	  type="radio"
+          	  name="aulaNumero"
+          	  value=${item.id}
+          	/>
+          </td>
+            </tr>
+          `;
+              })
+              .join("\n")}
+
+
+
+          	`;
+          });
+      });
+      materiaCarreraElement.addEventListener("change", (e) => {
+        fetch("http://localhost:8080/api/materias/" + e.target.value, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            materiaNombreElement.innerHTML = `<option selected>Elija una materia</option>`;
+            materiaNombreElement.innerHTML += res
+              .map(
+                ({ id, codMateria, materia_name }) =>
+                  `<option value=${id}>${materia_name} - ${codMateria}</option>`
+              )
+              .join("\n");
+          });
+      });
+
+      //DOM LOAD END LISTENER
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("LOAD END");
+
+        fetch("http://localhost:8080/api/edificio", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            edificioAulaElement.innerHTML = `<option selected>Elija un edificio</option>`;
+            edificioAulaElement.innerHTML += res
+              .map(
+                ({ id, edificio_name }) =>
+                  `<option value=${id}>${edificio_name}</option>`
+              )
+              .join("\n");
+          });
+
+        fetch("http://localhost:8080/api/carreras")
+          .then((res) => res.json())
+          .then((res) => {
+            materiaCarreraElement.innerHTML = `<option selected>Elija una carrera</option>`;
+            materiaCarreraElement.innerHTML += res
+              .map(
+                ({ id, carrera_name }) =>
+                  `<option value=${id}>${carrera_name}</option>`
+              )
+              .join("\n");
+          });
+      });
+    </script>
+  </body>
+</html>

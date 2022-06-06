@@ -1,20 +1,26 @@
 package com.unla.Grupo18.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "final")
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Final extends NotaPedido {
 
-	@NotNull
-	@NotEmpty
 	@Column(name = "fecha_examen")
-	private LocalDateTime fechaExamen;
+	private LocalDate fechaExamen;
+
+	@Override
+	public String toString() {
+		return super.toString() + "Final [fechaExamen=" + fechaExamen + "]";
+	}
 
 }

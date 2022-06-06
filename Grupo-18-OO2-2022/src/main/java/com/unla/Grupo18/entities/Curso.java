@@ -3,16 +3,22 @@ package com.unla.Grupo18.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
+@Data
 @Table(name = "curso")
+@EqualsAndHashCode(callSuper = false)
 public class Curso extends NotaPedido {
 
-	@NotNull
-	@NotEmpty
 	@Column(name = "cod_curso")
 	private String codCurso;
+
+	@Override
+	public String toString() {
+		return super.toString() + "Curso [codCurso=" + codCurso + "]";
+	}
 
 }

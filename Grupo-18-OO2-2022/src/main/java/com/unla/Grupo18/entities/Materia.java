@@ -11,38 +11,40 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Data @NoArgsConstructor
-@Table(name="materia",uniqueConstraints = {@UniqueConstraint(columnNames = {"codMateria","materia_name"})})
-
+@Data
+@NoArgsConstructor
+@Table(name = "materia", uniqueConstraints = { @UniqueConstraint(columnNames = { "codMateria", "materia_name" }) })
+@JsonIgnoreProperties({ "hibernateLazyInitializer" })
 public class Materia {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id; 
-	
-	@Column(name="codMateria")
+	private long id;
+
+	@Column(name = "codMateria")
 	@NotEmpty
 	private int codMateria;
-	
-	@Column(name="materia_name")
+
+	@Column(name = "materia_name")
 	@NotEmpty
-	private String materia_name; 
-	
+	private String materia_name;
+
 	@ManyToOne
-	@JoinColumn(name="carrera_id")
-	private Carrera carrera; 
-	
+	@JoinColumn(name = "carrera_id")
+	private Carrera carrera;
+
 	public Materia(long id, int codMateria, String materia_name) {
-		super(); 
-		this.id=id; 
+		super();
+		this.id = id;
 		this.codMateria = codMateria;
-		this.materia_name = materia_name; 
-		
+		this.materia_name = materia_name;
+
 	}
-	
+
 }

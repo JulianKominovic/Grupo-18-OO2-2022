@@ -9,36 +9,48 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-@Inheritance
+import com.unla.Grupo18.util.NotaPedidoStatusEnum;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name = "nota_pedido")
-public abstract class NotaPedido {
+@Data
+@NoArgsConstructor
+public class NotaPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@NotNull
-	@NotEmpty
+	@Column(name = "id")
+	private Long id;
+
 	@Column(name = "fecha_inicio_pedido")
 	private LocalDateTime fechaInicioPedido;
-	@NotNull
-	@NotEmpty
+
 	@Column(name = "cant_estudiantes")
 	private int cantEstudiantes;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "espacio", nullable = false, unique = true)
+	@JoinColumn(name = "espacio", nullable = false)
 	private Espacio espacio;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "materia", nullable = false, unique = true)
+	@JoinColumn(name = "materia", nullable = false)
 	private Materia materia;
+	@Column(name = "observaciones")
 	private String observaciones;
+	@Column(name = "status")
+	private NotaPedidoStatusEnum status;
+
+	public boolean equals(NotaPedido nota) {
+		return this.getId() != nota.getId();
+	}
 
 }
