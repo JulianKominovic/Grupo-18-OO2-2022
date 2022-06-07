@@ -1,4 +1,6 @@
 package com.unla.Grupo18.entities;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,4 +28,10 @@ public class Departamento {
 	@NotEmpty(message="el campo no debe estar vacio") 
 	private String departamento_name; 
 	
+	@Override
+	public boolean equals(Object obj) {
+		Departamento other = (Departamento) obj;
+		return Objects.equals(departamento_name, other.departamento_name);
+	}
+
 }

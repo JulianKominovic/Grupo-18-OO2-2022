@@ -12,4 +12,12 @@ import com.unla.Grupo18.entities.Usuario;
 
 @Repository("usuarioRepository")
 public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable> {
+	@Query("SELECT u FROM Usuario u WHERE u.correoElectronico = (:correoElectronico)")
+	public abstract Usuario getByEmail(@Param("correoElectronico") String correoElectronico);
+	
+	@Query("SELECT u FROM Usuario u WHERE u.documento = (:documento)")
+	public abstract Usuario getByDni(@Param("documento") int documento);
+	
+	@Query("SELECT u FROM Usuario u WHERE u.nombreDeUsuario = (:nombreDeUsuario)")
+	public abstract Usuario getByUsername(@Param("nombreDeUsuario") String nombreDeUsuario);
 }

@@ -39,20 +39,23 @@ public class PerfilController {
 	
 	@PostMapping("/")
 	public String guardar(@Valid @ModelAttribute Perfiles perfil,BindingResult result,Model model,RedirectAttributes attribute) {
+		if(perfilesService.getByRol(perfil.getRol())!=null) {
+			FieldError error = new FieldError("perfil", "rol", "Ya existe un perfil con ese rol");
+			result.addError(error);
+		}
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Nuevo Perfil");
 			model.addAttribute("perfil", perfil);
 			System.out.println("Se encontraron Errores en el Perfil!");
-			return ViewRouteHelper.PERFIL_CREAR;
+			return ViewRouteHelper.PERFIL_REDIRECT_LISTA;
 		}
 		perfil.setDeshabilitado(true);
 		perfilesService.save(perfil);
 		System.out.println("Perfil guardado con exito!");
 		attribute.addFlashAttribute("success","Perfil agregado con exito");
-		return ViewRouteHelper.PERFIL_REDIRECT;	
+		return ViewRouteHelper.PERFIL_REDIRECT_LISTA;	
 	}
-	
-	
+		
 	@GetMapping("/lista")
 	public String listarClientes(Model model) {
 		List<Perfiles> listado = perfilesService.getAll();
@@ -85,5 +88,5 @@ public class PerfilController {
 		attribute.addFlashAttribute("warning","Perfil eliminado con exito");
 		return ViewRouteHelper.PERFIL_REDIRECT_LISTA;
 	}
-
+	
 }

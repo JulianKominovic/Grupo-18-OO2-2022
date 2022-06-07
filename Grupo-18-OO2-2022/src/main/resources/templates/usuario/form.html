@@ -31,6 +31,10 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/aulas/lista/}">Aulas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
 
@@ -46,6 +50,14 @@
 		<div class="alert alert-warning alert-dismissable" th:if="${warning != null}">
 			<label th:text="${warning}"></label>
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		<div class="alert alert-success alert-dismissable" th:if="${success != null}">
+			<label th:text="${success}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+			<div class="alert alert-danger alert-dismissable" th:if="${error != null}">
+				<label th:text="${error}"></label>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
 	</header>
 
@@ -89,7 +101,6 @@
 				<option th:each="perfil:${perfiles}"
 					    th:value="${perfil.id}"
 					   th:text="${perfil.rol}"/></p>
-					   
 			<input type="submit" class="btn btn-primary btn-sm" value="Guardar" />
 		</form>
 	</div>

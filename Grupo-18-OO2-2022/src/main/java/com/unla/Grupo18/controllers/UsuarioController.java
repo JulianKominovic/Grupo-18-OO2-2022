@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import com.unla.Grupo18.entities.Perfiles;
 import com.unla.Grupo18.entities.Usuario;
 import com.unla.Grupo18.helpers.ViewRouteHelper;
@@ -56,7 +57,7 @@ public class UsuarioController {
 		model.addAttribute("perfiles", perfiles);
 		return ViewRouteHelper.USUARIO_INDEX;
 	}
-
+	
 	@PostMapping("/")
 	public String guardar(@Valid @ModelAttribute Usuario usuario,BindingResult result, Model model, RedirectAttributes attribute) {
 		List<Perfiles> listaPerfiles = perfilesService.getAll();
@@ -65,7 +66,22 @@ public class UsuarioController {
 			if (p.isDeshabilitado() == true) {
 				perfiles.add(p);
 			}
-		}	
+		}
+		if(usuarioService.getByDni(usuario.getDocumento())!=null && usuarioService.getByDni(usuario.getDocumento()).getId()!=usuario.getId()) 
+		{
+			FieldError error = new FieldError("usuario", "documento", "Ya existe un usuario con ese documento");
+			result.addError(error);
+		}
+		
+		if(usuarioService.getByUsername(usuario.getNombreDeUsuario())!=null && usuarioService.getByUsername(usuario.getNombreDeUsuario()).getId()!=usuario.getId()) {
+			FieldError error = new FieldError("usuario", "nombreDeUsuario", "Ya existe un usuario con ese nombre de usuario");
+			result.addError(error);
+		}
+		if(usuarioService.getByEmail(usuario.getCorreoElectronico())!=null && usuarioService.getByEmail(usuario.getCorreoElectronico()).getId()!=usuario.getId()) {
+			FieldError error = new FieldError("usuario", "correoElectronico", "Ya existe un usuario con ese correo electronico");
+			result.addError(error);
+		}
+			
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario: Nuevo Usuario");
 			model.addAttribute("usuario", usuario);
@@ -80,7 +96,7 @@ public class UsuarioController {
 		usuarioService.save(usuario);
 		System.out.println("Usuario guardado con exito!");
 		attribute.addFlashAttribute("success","Usuario agregado con exito");
-		return "redirect:/usuarios/";
+		return ViewRouteHelper.USUARIO_REDIRECT_LISTA;
 
 	}
 
@@ -117,5 +133,5 @@ public class UsuarioController {
 		attribute.addFlashAttribute("warning","Usuario eliminado con exito");
 		return ViewRouteHelper.ROUTE_REDIRECT;
 	}
-
+	
 }

@@ -15,5 +15,10 @@ public interface IUsuarioService {
 	public void eliminar(long id);
 	
 	public void save(Usuario usuario);
+	
+	public Usuario getByEmail(@Param("correoElectronico") String correoElectronico);
+	
+	public Usuario getByDni(@Param("documento") int documento);
 
+	public Usuario getByUsername(@Param("nombreDeUsuario") String nombreDeUsuario);
 }
