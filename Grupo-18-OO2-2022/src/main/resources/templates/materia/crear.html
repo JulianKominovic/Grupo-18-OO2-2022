@@ -64,26 +64,20 @@
 				<input type="hidden" th:field="*{id}" />
 				
 			<!--  FALTA AGREGAR NOMBRE MATERIA Y SU CODIGO -->
-		<form action="#" th:action="@{/departamento/}" th:object="${departamento}" method="post">
-				<input type="hidden" th:field="*{id}" />
 				
-				<p> Materia: <input type="number" th:field="*{cod_materia}" />
-					<small class="form-control" th:if="${#fields.hasErrors('cod_materia')}" 
-					th:erros="*{departamento_name}"></small>
-				</p>
+				<p> Codigo materia: <input type="number" th:field="*{codMateria}"/></p>
 				
+				<p> Nombre materia: <input type="text" th:field="*{materia_name}"/></p>
 				
-				<p><input type="text" th:field="*{materia_name}" />
-					<small class="form-text text-danger" th:if="${#fields.hasErrors('materia_name')}" 
-					th:erros="*{materia_name}"></small>
-				</p>
+				<p> Carrera:
+				<select th:field="*{carrera}" id="carreras">
+				<option th:each="carrera:${carreras}"
+					    th:value="${carrera.id}"
+					   th:text="${carrera.carrera_name}"/></p>
 				<input type="submit" />
-			</form>
-				
 			</form>
 		</div>
 	</div>
-	
 	
 	
 	<div class="container"> </div>

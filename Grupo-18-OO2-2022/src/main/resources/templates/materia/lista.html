@@ -70,6 +70,8 @@
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Materias</th>
+					<th scope="col">Codigo</th>
+					<th scope="col">Carrera</th>
 					<th scope="col" sec:authorize="hasAuthority('Administrador')">Editar</th>
 					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
 				</tr>
@@ -77,6 +79,8 @@
 			<tbody>
 				<tr th:each="li:${lista}">
 					<th scope="row" th:text="${li.materia_name}"></th>
+					<th scope="row" th:text="${li.codMateria}"></th>
+					<th scope="row" th:text="${li.carrera}"></th>
 					
 					<td sec:authorize="hasAuthority('Administrador')"><a
 						class="btn btn-success btn-sm"

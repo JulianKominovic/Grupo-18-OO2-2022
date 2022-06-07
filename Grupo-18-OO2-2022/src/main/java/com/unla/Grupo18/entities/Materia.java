@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,7 +29,7 @@ public class Materia {
 	private long id;
 
 	@Column(name = "codMateria")
-	@NotEmpty
+	@NotNull
 	private int codMateria;
 
 	@Column(name = "materia_name")
@@ -39,7 +40,7 @@ public class Materia {
 	@JoinColumn(name = "carrera_id")
 	private Carrera carrera;
 
-	public Materia(long id, int codMateria, String materia_name) {
+	public Materia(long id, int cod_materia, String materia_name) {
 		super();
 		this.id = id;
 		this.codMateria = codMateria;

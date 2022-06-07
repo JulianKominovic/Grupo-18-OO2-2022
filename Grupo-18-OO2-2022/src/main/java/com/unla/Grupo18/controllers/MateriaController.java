@@ -1,5 +1,6 @@
 package com.unla.Grupo18.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.unla.Grupo18.entities.Carrera;
 import com.unla.Grupo18.entities.Materia;
 import com.unla.Grupo18.helpers.ViewRouteHelper;
+import com.unla.Grupo18.services.ICarreraService;
 import com.unla.Grupo18.services.IMateriaService;
 
 @Controller
@@ -27,25 +31,23 @@ public class MateriaController {
 	@Qualifier("materiaService")
 	private IMateriaService  materiaService; 
 	
+	@Autowired
+	@Qualifier("carreraService")
+	private ICarreraService carreraService;
 	
 	@GetMapping("/")
 	public String crear (Model model) {
 		Materia materia = new Materia();
+		List<Carrera> carrera = carreraService.getAll();
+		//List<Carrera> carreras = new ArrayList<Carrera>();
 		model.addAttribute("titulo", "Formulario: Nueva Materia");
 		model.addAttribute("materia", materia);
-		
+		model.addAttribute("carreras",carrera);
 		return ViewRouteHelper.MATERIA_CREAR;
 	}
 	
 	@PostMapping("/")
 	public String guardar(@Valid @ModelAttribute Materia materia,BindingResult result,Model model,RedirectAttributes attribute) {
-		
-		if(result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario: Nueva Materia");
-			model.addAttribute("materia", materia);
-			System.out.println("Se encontraron errores en el formulario!");
-			return ViewRouteHelper.MATERIA_CREAR;
-		}
 		materiaService.save(materia);
 		System.out.println("Materia guardada con exito!");
 		attribute.addFlashAttribute("success", "Materia agregada con exito");
@@ -63,8 +65,10 @@ public class MateriaController {
 	@GetMapping("lista/edit/{id}")
 	public String editar(@PathVariable("id")long id,Model model) {
 		Materia materia = materiaService.buscar(id);
+		List<Carrera> carrera = carreraService.getAll();
 		model.addAttribute("titulo", "Editar materia");
 		model.addAttribute("materia", materia);
+		model.addAttribute("carreras",carrera);
 		return ViewRouteHelper.MATERIA_CREAR;
 	}
 	 @GetMapping("lista/delete/{id}")
