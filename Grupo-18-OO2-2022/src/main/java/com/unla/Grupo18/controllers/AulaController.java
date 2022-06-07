@@ -157,22 +157,22 @@ public class AulaController {
 		boolean ilogico = false;
 		if(aula instanceof Tradicional) { //validaciones de aula tradicional
 			Tradicional auxAula = (Tradicional)aula;
-			if(auxAula.getNumero() < 0 || auxAula.getNumero() > 100) {
+			if(auxAula.getNumero() <= 0 || auxAula.getNumero() > 100) {
 				ilogico = true;
 			}
-			if(auxAula.getCantBancos() < 0 || auxAula.getCantBancos() > 100) {
+			if(auxAula.getCantBancos() <= 0 || auxAula.getCantBancos() > 100) {
 				ilogico = true;
 			}
 		}
 		if(aula instanceof Laboratorio) { //validaciones de aula laboratorio
 			Laboratorio auxAula = (Laboratorio)aula;
-			if(auxAula.getNumero() < 0 || auxAula.getNumero() > 100) {
+			if(auxAula.getNumero() <= 0 || auxAula.getNumero() > 100) {
 				ilogico = true;
 			}
-			if(auxAula.getCantPC() < 0 || auxAula.getCantPC() > 100) {
+			if(auxAula.getCantPC() <= 0 || auxAula.getCantPC() > 100) {
 				ilogico = true;
 			}
-			if(auxAula.getCantSillas() < 0 || auxAula.getCantSillas() > 100) {
+			if(auxAula.getCantSillas() <= 0 || auxAula.getCantSillas() > 100) {
 				ilogico = true;
 			}
 		}
