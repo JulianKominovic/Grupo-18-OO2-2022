@@ -36,5 +36,17 @@ public class UsuarioService implements IUsuarioService {
 	public void eliminar(long id) {
 		usuarioRepository.deleteById(id);
 	}
+
+	public Usuario getByDni(@Param("documento") int documento) {
+		return usuarioRepository.getByDni(documento);
+	}
+	
+	public Usuario getByEmail(@Param("correoElectronico") String correoElectronico) {
+		return usuarioRepository.getByEmail(correoElectronico);
+	}
+	
+	public Usuario getByUsername(@Param("nombreDeUsuario") String nombreDeUsuario) {
+		return usuarioRepository.getByUsername(nombreDeUsuario);
+	}
 	
 }

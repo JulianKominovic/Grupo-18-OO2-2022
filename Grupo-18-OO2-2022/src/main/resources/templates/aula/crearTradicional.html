@@ -18,7 +18,9 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-
+					<li class="nav-item"><a class="nav-link"
+						href="/usuarios/lista">Usuarios</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/perfiles/lista">Perfiles</a>
 					</li>
@@ -35,9 +37,12 @@
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
-
-						
-						<li class="nav-item">
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/espacios/lista/}">Espacios</a>
+					</li>
+					
+					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/carrera/lista/}">Carrera</a>
 					</li>
@@ -47,12 +52,6 @@
 							th:href="@{/materia/lista/}">Materia</a>
 					</li>
 					
-						
-					<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/nota-pedido}">Pedidos</a>
-					</li>
-
 
 					<li class="nav-item">
 						<a class="nav-link" href="/logout">Cerrar sesion</a>
@@ -67,79 +66,62 @@
 			<label th:text="${warning}"></label>
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
-		<div class="alert alert-success alert-dismissable" th:if="${success != null}">
-			<label th:text="${success}"></label>
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		</div>
-		<div class="alert alert-danger alert-dismissable" th:if="${error != null}">
-			<label th:text="${error}"></label>
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-		</div>
 	</header>
+	
+	<div class="row">
+	<div class="col-sm"></div>
+    <div class="col-sm">
+		<div class="card bg-light" >
+			<div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+			<div class="card-body">
+			
+				<form th:action="@{/aulas/crear/tradicional}" th:object="${tradicional}" method="post">
+					<input type="hidden" th:field="*{id}" />
+				  <div class="mb-3">
+				    <label for="edificio" class="form-label">Edificio</label>
+				    <select class="form-control" th:field="${tradicional.edificio}">
+				    	<option th:each="edificio:${edificios}"
+				    		th:value="${edificio.id}"
+				    		th:text="${edificio.edificio_name}"
+				    	/>
+				    </select>
+				  </div>
+				  <div class="mb-3">
+				    <label for="aula" class="form-label">Aula</label>
+				    <input type="text" class="form-control" th:field="${tradicional.numero}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="cantBancos" class="form-label">Cantidad de bancos</label>
+				    <input type="text" class="form-control" th:field="${tradicional.cantBancos}">
+				  </div>
+				  <div class="mb-3">
+				    <label for="tipoPizarron" class="form-label">Tipo de Pizarron</label>
+				    <select class="form-control" th:field="${tradicional.pizarron}">
+				    	<option th:value="Tiza" th:text="Tiza"/>
+						<option th:value="Fibron" th:text="Fibron"/>
+						<option th:value="Inteligente" th:text="Inteligente"/>
+				    </select>
+				  </div>
+				  <div class="mb-3">
+				  	<label for="proyector" class="form-label">Tiene proyector?</label>
+				  </div>
+				   <div class="form-check">
+					  <input class="form-check-input" type="radio" name="checkProyector" value=true th:field="${tradicional.tieneProyector}">
+					  <label class="form-check-label" for="checkSi">Si</label>
+				  </div>
+				  <div class="form-check">
+					  <input class="form-check-input" type="radio" name="checkProyector" value=false th:field="${tradicional.tieneProyector}" checked>
+					  <label class="form-check-label" for="checkNo">No</label>
+				  </div><p></p>
+				  <input type="submit" class="btn btn-primary btn-sm" value="Guardar" /><p></p>
 
-	<div class="container">
-		<h1 th:text="${titulo}"></h1>
-
+				</form>
+			</div>
+		</div>
 	</div>
-
-	<div class="container">
-
-		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/usuarios/}"
-			th:text="'Crear Usuario'" title="Crear nuevo usuario">
-		</a>
-
-
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Nombre</th>
-					<th scope="col">Apellido</th>
-					<th scope="col">Tipo documento</th>
-					<th scope="col">Documento</th>
-					<th scope="col">Correo electronico</th>
-					<th scope="col">Usuario</th>
-					<th scope="col">Perfil</th>
-					<th scope="col" sec:authorize="hasAuthority('Administrador')">Editar</th>
-					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="li:${lista}">
-
-					<th scope="row" th:text="${li.nombre}"></th>
-					<th scope="row" th:text="${li.apellido}"></th>
-					<th scope="row" th:text="${li.tipoDocumento}"></th>
-					<th scope="row" th:text="${li.documento}"></th>
-					<th scope="row" th:text="${li.correoElectronico}"></th>
-					<th scope="row" th:text="${li.nombreDeUsuario}"></th>
-					<th scope="row" th:text="${li.perfiles}"></th>
-
-
-					<td sec:authorize="hasAuthority('Administrador')">
-						<a class="btn btn-success btn-sm" th:href="@{/usuarios/lista/edit/}+${li.id}" th:text="Editar"
-							title="Editar registro">
-						</a>
-					</td>
-					<td sec:authorize="hasAuthority('Administrador')">
-						<a class="btn btn-danger btn-sm" th:href="@{/usuarios/lista/delete/}+${li.id}"
-							th:text="Eliminar" title="Eliminar registro"
-							onclick="return confirm('Esta seguro de eliminar el registro?');">
-						</a>
-					</td>
-				</tr>
-
-			</tbody>
-		</table>
-		
-		<a class="nav-link float-right" sec:authorize="hasAuthority('Auditor')"
-			th:href="@{/usuarios/lista/(format=pdf)}" title="Exportar a PDF" target="_blank">
-
-			<img class="img-responsive center-box" th:src="@{/images/IconoPDF.png}" height="auto">
-		</a>
-
+	<div class="col-sm"></div>
 	</div>
-
-
+	
 	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">
 		<div class="container">
 			<p>GRUPO 18</p>

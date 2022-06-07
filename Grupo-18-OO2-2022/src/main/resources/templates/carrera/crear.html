@@ -68,11 +68,12 @@
 					th:erros="*{carrera_name}"></small>
 				</p>
 				
-				<p> Departamento:
+				<p> Departamento:</p>
 				<select th:field="*{departamento}" id="departamentos">
 				<option th:each="departamento:${departamento}"
 					    th:value="${departamento.id}"
-					   th:text="${departamento.departamento_name}"/></p>
+					   th:text="${departamento.departamento_name}"/>
+					   </select>
 
 				<input type="submit" />
 			</form>

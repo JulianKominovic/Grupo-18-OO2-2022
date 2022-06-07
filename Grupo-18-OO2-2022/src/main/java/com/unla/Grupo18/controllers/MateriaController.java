@@ -40,6 +40,7 @@ public class MateriaController {
 		Materia materia = new Materia();
 		List<Carrera> carrera = carreraService.getAll();
 		//List<Carrera> carreras = new ArrayList<Carrera>();
+		//System.out.println("AQUI    "+carrera);
 		model.addAttribute("titulo", "Formulario: Nueva Materia");
 		model.addAttribute("materia", materia);
 		model.addAttribute("carreras",carrera);
@@ -48,10 +49,11 @@ public class MateriaController {
 	
 	@PostMapping("/")
 	public String guardar(@Valid @ModelAttribute Materia materia,BindingResult result,Model model,RedirectAttributes attribute) {
+		System.out.println("MATERIA=========== "+materia);
 		materiaService.save(materia);
 		System.out.println("Materia guardada con exito!");
 		attribute.addFlashAttribute("success", "Materia agregada con exito");
-		return ViewRouteHelper.MATERIA_REDIRECT;	
+		return ViewRouteHelper.MATERIA_REDIRECT;
 	}
 	
 	@GetMapping("/lista")

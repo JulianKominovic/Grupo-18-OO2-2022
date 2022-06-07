@@ -11,6 +11,7 @@ public class ViewRouteHelper {
 	public final static String USUARIO_REDIRECT = "redirect:/usuarios/";
 	public final static String PERFIL_REDIRECT = "redirect:/perfiles/";
 	public final static String PERFIL_REDIRECT_LISTA = "redirect:/perfiles/lista";
+	public final static String USUARIO_REDIRECT_LISTA = "redirect:/usuarios/lista/";
 	public final static String USUARIO_ROOT = "/usuarios/";
 	public final static String ROUTE = "/index";
 

@@ -3,6 +3,7 @@ package com.unla.Grupo18.services.implementation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.unla.Grupo18.entities.Perfiles;
@@ -38,5 +39,8 @@ public class PerfilesService implements IPerfilesService {
 	public void eliminar (long id) {
 		perfilesRepository.deleteById(id);
 	}
-		
+	
+	public Perfiles getByRol(@Param("rol") String rol) {
+		return perfilesRepository.getByRol(rol);
+	}
 }

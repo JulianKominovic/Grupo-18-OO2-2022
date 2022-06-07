@@ -31,6 +31,10 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/aulas/lista/}">Aulas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
 					
@@ -66,8 +70,8 @@
 			<div class="card-header bg-dark text-white" th:text="${titulo}"></div>
 			<div class="card-body">
 			
-				<form th:action="@{/espacios/crear/laboratorio}" method="post">
-				  
+				<form th:action="@{/aulas/crear/laboratorio}" th:object="${laboratorio}" method="post">
+				  <input type="hidden" th:field="*{id}" />
 				  <div class="mb-3">
 				    <label for="edificio" class="form-label">Edificio</label>
 				    <select class="form-control" th:field="${laboratorio.edificio}">
@@ -89,18 +93,6 @@
 				  <div class="mb-3">
 				    <label for="cantSillas" class="form-label">Cantidad de sillas</label>
 				    <input type="text" class="form-control" th:field="${laboratorio.cantSillas}">
-				  </div>
-				   <div class="mb-3">
-				    <label for="turno" class="form-label">Turno</label>
-				    <select class="form-control" th:field="${espacio.turno}">
-				    	<option th:value="Mañana" th:text="Mañana"/>
-						<option th:value="Tarde" th:text="Tarde"/>
-						<option th:value="Noche" th:text=Noche/>
-				    </select>
-				  </div>
-				  <div class="mb-3">
-				    <label for="fecha" class="form-label">Fecha</label>
-				    <input type="date" th:field="${espacio.fecha}">
 				  </div>
 				  <input type="submit" class="btn btn-primary btn-sm" value="Guardar" /><p></p>
 				</form>

@@ -29,41 +29,17 @@
 							</li>
 							
 							<li class="nav-item">
-
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/departamento/lista/}">Departamentos</a>
 					       </li>
-
-					       
 					       <li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/carrera/lista/}">Carrera</a>
-					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/materia/lista/}">Materia</a>
-					</li>
-					
-
 					       <li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/nota-pedido}">Pedidos</a>
-					</li>
-
-
 								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-								th:href="@{/departamento/lista/}">Departamentos</a>
-					      	 </li>
-							 <li class="nav-item">
-								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-								th:href="@{/aulas/lista/}">Aulas</a>
+								th:href="@{/espacios/lista/}">Espacios</a>
 							</li>
-							 <li class="nav-item">
 								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 									th:href="@{/nota-pedido}">Pedidos</a>
 							</li>
-
 							<li class="nav-item">
 								<a class="nav-link" href="/logout">Cerrar sesion</a>
 							</li>
@@ -89,35 +65,92 @@
 	</div>
 
 	<div class="container">
-		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/espacios/crear}"
-			th:text="'Crear Espacio'" title="Crear nuevo espacio"></a><p></p>
+		
+		<div class="container">
+			<h3 th:text="${tituloTradicional}"></h3>
+		</div>
+		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/aulas/crear/tradicional}"
+			th:text="'Crear Aula'" title="Crear nueva aula"></a><p></p>
+
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Edificio</th>
 					<th scope="col">N° Aula</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Turno</th>
-					<th scope="col">Libre</th>
+					<th scope="col">Cantidad de bancos</th>
+					<th scope="col">Tipo de pizarron</th>
+					<th scope="col">Proyector</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Editar</th>
 					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="e:${espacios}">
-					<th scope="row" th:text="${e.aula.edificio.edificio_name}"></th>
-					<th scope="row" th:text="${e.aula.numero}"></th>
-					<th scope="row" th:text="${e.fecha}"></th>
-					<th scope="row" th:text="${e.turno}"></th>
-					<th scope="row" th:if="${e.libre == true}" th:text="Si"></th>
-					<th scope="row" th:if="${e.libre == false}" th:text="No"></th>
+				<tr th:each="at:${aulasTradicional}">
+
+					<th scope="row" th:text="${at.edificio.edificio_name}"></th>
+					<th scope="row" th:text="${at.numero}"></th>
+					<th scope="row" th:text="${at.cantBancos}"></th>
+					<th scope="row" th:text="${at.pizarron}"></th>
+					<th scope="row" th:if="${at.tieneProyector == true}" th:text="Si"></th>
+					<th scope="row" th:if="${at.tieneProyector == false}" th:text="No"></th>
+					
+					<td sec:authorize="hasAuthority('Administrador')">
+						<a class="btn btn-success btn-sm" th:href="@{/aulas/lista/edit/}+${at.id}" th:text="Editar"
+							title="Editar registro">
+						</a>
+					</td>
+					
+					<td sec:authorize="hasAuthority('Administrador')"><a
+						class="btn btn-danger btn-sm"
+						th:href="@{/aulas/lista/delete/}+${at.id}" th:text="Eliminar"
+						title="Eliminar aula"
+						onclick="return confirm('Esta seguro de eliminar aula?');">
+					</a></td>
+
+				</tr>
+
+			</tbody>
+		</table>
+
+		<div class="container">
+			<h3 th:text="${tituloLaboratorio}"></h3>
+		</div>
+		<a class="btn btn-primary btn-sm" sec:authorize="hasAuthority('Administrador')" th:href="@{/aulas/crear/laboratorio}"
+			th:text="'Crear Aula'" title="Crear nueva aula"></a><p></p>
+				<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Edificio</th>
+					<th scope="col">N° Aula</th>
+					<th scope="col">Cantidad de computadoras</th>
+					<th scope="col">Cantidad de sillas</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Editar</th>
+					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="al:${aulasLaboratorio}">
+
+					<th scope="row" th:text="${al.edificio.edificio_name}"></th>
+					<th scope="row" th:text="${al.numero}"></th>
+					<th scope="row" th:text="${al.cantPC}"></th>
+					<th scope="row" th:text="${al.cantSillas}"></th>
+					
+					<td sec:authorize="hasAuthority('Administrador')">
+						<a class="btn btn-success btn-sm" th:href="@{/aulas/lista/edit/}+${al.id}" th:text="Editar"
+							title="Editar registro">
+						</a>
+					</td>
 
 					<td sec:authorize="hasAuthority('Administrador')"><a
 						class="btn btn-danger btn-sm"
-						th:href="@{/espacios/lista/delete/}+${e.id}" th:text="Eliminar"
+						th:href="@{/aulas/lista/delete/}+${al.id}" th:text="Eliminar"
 						title="Eliminar espacio"
-						onclick="return confirm('Esta seguro de eliminar el espacio?');">
+						onclick="return confirm('Esta seguro de eliminar el aula?');">
 					</a></td>
+
 				</tr>
+
 			</tbody>
 		</table>
 	</div>

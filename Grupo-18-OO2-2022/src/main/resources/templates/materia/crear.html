@@ -69,11 +69,13 @@
 				
 				<p> Nombre materia: <input type="text" th:field="*{materia_name}"/></p>
 				
-				<p> Carrera:
-				<select th:field="*{carrera}" id="carreras">
-				<option th:each="carrera:${carreras}"
+				<p> Carrera:</p>
+				
+			<select th:field="*{carrera}" id="carrera"> 
+			<option th:each="carrera:${carreras}"
 					    th:value="${carrera.id}"
-					   th:text="${carrera.carrera_name}"/></p>
+					   th:text="${carrera}"/>
+			
 				<input type="submit" />
 			</form>
 		</div>

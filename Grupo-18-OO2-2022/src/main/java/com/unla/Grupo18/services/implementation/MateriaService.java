@@ -38,6 +38,7 @@ public class MateriaService implements IMateriaService {
 	@Override
 	public void save(Materia materia) {
 		// TODO Auto-generated method stub
+		System.out.println(materia);
 		materiaRepository.save(materia);
 	}
 
