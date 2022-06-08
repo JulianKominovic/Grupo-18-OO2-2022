@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head">
 	<meta charset="UTF-8" />
-	<title>UNLa</title>
+	<title>Objetos 2</title>
 	<link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
 </head>
 
@@ -31,23 +31,15 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/aulas/lista/}">Aulas</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
-					
+						
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/carrera/lista/}">Carrera</a>
-					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/materia/lista/}">Materia</a>
-					</li>
-
+					</li>	
+						
+						
 					<li class="nav-item">
 						<a class="nav-link" href="/logout">Cerrar sesion</a>
 					</li>
@@ -62,46 +54,36 @@
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
 	</header>
-	
-	<div class="row">
-	<div class="col-sm"></div>
-    <div class="col-sm">
-		<div class="card bg-light" >
-			<div class="card-header bg-dark text-white" th:text="${titulo}"></div>
-			<div class="card-body">
-			
-				<form th:action="@{/aulas/crear/laboratorio}" th:object="${laboratorio}" method="post">
-				  <input type="hidden" th:field="*{id}" />
-				  <div class="mb-3">
-				    <label for="edificio" class="form-label">Edificio</label>
-				    <select class="form-control" th:field="${laboratorio.edificio}">
-				    	<option th:each="edificio:${edificios}"
-				    		th:value="${edificio.id}"
-				    		th:text="${edificio.edificio_name}"
-				    	/>
-				    </select>
-				  </div>
-				  <div class="mb-3">
-				    <label for="aula" class="form-label">Aula</label>
-				    <input type="text" class="form-control" th:field="${laboratorio.numero}">
-				  </div>
 
-				  <div class="mb-3">
-				    <label for="cantPC" class="form-label">Cantidad de computadoras</label>
-				    <input type="text" class="form-control" th:field="${laboratorio.cantPC}">
-				  </div>
-				  <div class="mb-3">
-				    <label for="cantSillas" class="form-label">Cantidad de sillas</label>
-				    <input type="text" class="form-control" th:field="${laboratorio.cantSillas}">
-				  </div>
-				  <input type="submit" class="btn btn-primary btn-sm" value="Guardar" /><p></p>
-				</form>
-			</div>
+
+	<div class="card bg-light">
+		<div class="card-header bg-dark text-white" th:text="${titulo}"> </div>
+		<div class="card-body">
+
+			<form action="#" th:action="@{/materia/}" th:object="${materia}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				
+			<!--  FALTA AGREGAR NOMBRE MATERIA Y SU CODIGO -->
+				
+				<p> Codigo materia: <input type="number" th:field="*{codMateria}"/></p>
+				
+				<p> Nombre materia: <input type="text" th:field="*{materia_name}"/></p>
+				
+				<p> Carrera:</p>
+				
+			<select th:field="*{carrera}" id="carrera"> 
+			<option th:each="carrera:${carreras}"
+					    th:value="${carrera.id}"
+					   th:text="${carrera}"/>
+			
+				<input type="submit" />
+			</form>
 		</div>
 	</div>
-	<div class="col-sm"></div>
-	</div>
 	
+	
+	<div class="container"> </div>
+
 	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">
 		<div class="container">
 			<p>GRUPO 18</p>

@@ -33,5 +33,10 @@ public class Departamento {
 		Departamento other = (Departamento) obj;
 		return Objects.equals(departamento_name, other.departamento_name);
 	}
+	
+	@Override
+	public String toString() {
+		return departamento_name; 
+	}
 
 }

@@ -39,5 +39,9 @@ public class Carrera {
 		this.id = id;
 		this.carrera_name = carrera_name; 
 	}
+	@Override
+	public String toString() {
+		return carrera_name; 
+	}
 
 }

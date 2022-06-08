@@ -29,6 +29,29 @@
 							</li>
 							
 							<li class="nav-item">
+
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/departamento/lista/}">Departamentos</a>
+					       </li>
+
+					       
+					       <li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/carrera/lista/}">Carrera</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/materia/lista/}">Materia</a>
+					</li>
+					
+
+					       <li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/nota-pedido}">Pedidos</a>
+					</li>
+
+
 								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 								th:href="@{/departamento/lista/}">Departamentos</a>
 					      	 </li>
@@ -40,6 +63,7 @@
 								<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 									th:href="@{/nota-pedido}">Pedidos</a>
 							</li>
+
 							<li class="nav-item">
 								<a class="nav-link" href="/logout">Cerrar sesion</a>
 							</li>

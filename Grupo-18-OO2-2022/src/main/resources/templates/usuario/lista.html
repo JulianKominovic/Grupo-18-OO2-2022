@@ -35,10 +35,24 @@
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
+
+						
+						<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/carrera/lista/}">Carrera</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
+							th:href="@{/materia/lista/}">Materia</a>
+					</li>
+					
+						
 					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/nota-pedido}">Pedidos</a>
 					</li>
+
 
 					<li class="nav-item">
 						<a class="nav-link" href="/logout">Cerrar sesion</a>

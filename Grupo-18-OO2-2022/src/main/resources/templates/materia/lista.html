@@ -27,33 +27,22 @@
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/departamento/lista/}">Departamentos</a>
+						<a class="nav-link" href="/perfiles/lista">Perfiles</a>
 					</li>
 					<li class="nav-item">
-					<li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/aulas/lista/}">Aulas</a>
-					</li>
-					<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-						th:href="@{/espacios/lista/}">Espacios</a>
+							th:href="@{/espacios/lista/}">Espacios</a>
 					</li>
 
 					
-					<li class="nav-item">
+					     <li class="nav-item">
 						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
 							th:href="@{/carrera/lista/}">Carrera</a>
 					</li>
 					
-
-					<li class="nav-item">
-						<a class="nav-link" sec:authorize="hasAnyAuthority('Auditor', 'Administrador')"
-							th:href="@{/nota-pedido}">Pedidos</a>
+					<li class="nav-item"><a class="nav-link" href="/logout">Cerrar sesion</a>
 					</li>
-
-					<li class="nav-item"><a class="nav-link" href="/logout">Cerrar
-							sesion</a>
-					</li>
+					
 			</div>
 			</li>
 			</ul>
@@ -64,14 +53,6 @@
 			<label th:text="${warning}"></label>
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
-		<div class="alert alert-success alert-dismissable" th:if="${success != null}">
-					<label th:text="${success}"></label>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-				</div>
-				<div class="alert alert-danger alert-dismissable" th:if="${error != null}">
-					<label th:text="${error}"></label>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-				</div>
 	</header>
 
 	<div class="container">
@@ -80,49 +61,44 @@
 	</div>
 
 	<div class="container">
-
+	
 		<a class="btn btn-primary btn-sm"
-			sec:authorize="hasAuthority('Administrador')" th:href="@{/perfiles/}"
-			th:text="'Crear Perfil'" title="Crear nuevo perfil"> </a>
-
+			sec:authorize="hasAuthority('Administrador')" th:href="@{/materia/}"
+			th:text="'Crear Materia'" title="Crear nueva materia"> </a>
 
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">Roles de los perfiles</th>
+					<th scope="col">Materias</th>
+					<th scope="col">Codigo</th>
+					<th scope="col">Carrera</th>
 					<th scope="col" sec:authorize="hasAuthority('Administrador')">Editar</th>
 					<th scope="col" sec:authorize="hasAuthority('Administrador')">Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="li:${lista}">
-
-					<th scope="row" th:text="${li.rol}"></th>
-
+					<th scope="row" th:text="${li.materia_name}"></th>
+					<th scope="row" th:text="${li.codMateria}"></th>
+					<th scope="row" th:text="${li.carrera}"></th>
+					
 					<td sec:authorize="hasAuthority('Administrador')"><a
 						class="btn btn-success btn-sm"
-						th:href="@{/perfiles/lista/edit/}+${li.id}" th:text="Editar"
+						th:href="@{/carrera/lista/edit/}+${li.id}" th:text="Editar"
 						title="Editar perfil"> </a></td>
+						
 					<td sec:authorize="hasAuthority('Administrador')"><a
 						class="btn btn-danger btn-sm"
-						th:href="@{/perfiles/lista/delete/}+${li.id}" th:text="Eliminar"
-						title="Eliminar perfil"
-						onclick="return confirm('Esta seguro de eliminar el perfil?');">
+						th:href="@{/materia/lista/delete/}+${li.id}" th:text="Eliminar"
+						title="Eliminar Materia"
+						onclick="return confirm('Esta seguro de eliminar la materia?');">
 					</a></td>
 				</tr>
 
 			</tbody>
 		</table>
-		
-		<a class="nav-link float-right" sec:authorize="hasAuthority('Auditor')"
-			th:href="@{/perfiles/lista/(format=pdf)}" title="Exportar a PDF" target="_blank">
-
-			<img class="img-responsive center-box" th:src="@{/images/IconoPDF.png}" height="auto">
-		</a>
-
 	</div>
-
-
+	
 	<footer th:fragment="footer"
 		class="bg-dark text-center text-white fixed-bottom">
 		<div class="container">
