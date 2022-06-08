@@ -23,11 +23,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
+@Inheritance(strategy=InheritanceType.JOINED)  
 @Table(name = "aula")
 public abstract class Aula{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long id;
 	
 	@Column(name = "numero")
