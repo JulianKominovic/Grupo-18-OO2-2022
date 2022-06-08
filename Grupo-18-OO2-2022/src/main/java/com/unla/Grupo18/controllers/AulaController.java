@@ -146,7 +146,7 @@ public class AulaController {
 		boolean repetido = false;
 		List<Aula> listado = aulaService.getAll();
 		for (Aula a : listado) {
-			if(aula.equals(a)) {
+			if(aula.comparar(a)) {
 				repetido = true;
 			}
 		}

@@ -38,10 +38,10 @@ public abstract class Aula{
 	@JoinColumn(name = "edificio_id")
 	protected Edificio edificio;
 
-	@Override
-	public boolean equals(Object obj) {
+	
+	public boolean comparar(Object obj) {
 		Aula other = (Aula) obj;
-		return Objects.equals(edificio, other.edificio) && numero == other.numero;
+		return (edificio.getEdificio_name().equalsIgnoreCase(other.getEdificio().getEdificio_name())) && (numero == other.numero);
 	}
 
 }
